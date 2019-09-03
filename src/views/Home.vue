@@ -1,18 +1,32 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    
+    Ragnars fantastiske ping-pong-webapp, velkommen!
+    Praise Javascript.
+
+    <PlayerList/>
+    <AddPlayer/>
+    <AddGame/>
+
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import PlayerList from '@/components/PlayerList.vue'
+import AddPlayer from '@/components/AddPlayer.vue'
+import AddGame from '@/components/AddGame.vue'
 
 export default {
   name: 'home',
+
   components: {
-    HelloWorld
+    PlayerList,
+    AddPlayer,
+    AddGame,
+  },
+
+  created () {
+    this.$store.dispatch('getPlayerList')
   }
 }
 </script>
