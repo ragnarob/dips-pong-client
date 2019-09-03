@@ -1,12 +1,14 @@
 <template>
-  <div>
-    <h2>Player ratings</h2>
-    <table>
-      <tr v-for="player in $store.getters.playerList" :key="player.id">
-        <td>{{player.name}}</td>
-        <td>{{player.elo}}</td>
-      </tr>
-    </table>
+  <div> 
+    <div class="player-list">
+      <h2>Player ratings</h2>
+      <table style="margin: 8px auto 0 auto;">
+        <tr v-for="player in $store.getters.playerList" :key="player.id">
+          <td style="padding-right: 10px;">{{player.name}}</td>
+          <td style="text-align: right;">{{player.elo}}</td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -16,5 +18,5 @@ export default {
 }
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 </style>

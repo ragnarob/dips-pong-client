@@ -1,13 +1,16 @@
 <template>
   <div>
-    <button v-if="!isAdding" @click="isAdding = true">Add new player</button>
-    <form v-on:submit.prevent="addPlayer">
-      <input type="text" v-model="newPlayerName" v-show="isAdding"/>
-      <input type="submit" value="Add player" v-show="isValidName">
+    <button v-show="!isAdding" @click="isAdding = true">Add new player</button>
+    <form v-on:submit.prevent="addPlayer" v-show="isAdding" style="display: flex; flex-direction: column;">
+      <p>Player name</p>
+      <input type="text" v-model="newPlayerName" style="width: 120px;"/>
+      
+      <input type="submit" value="Add player" :class="{'button-disabled': !isValidName}" style="margin-top: 12px;">
+      <button @click="cancelAdd" style="margin-top: 8px;">Cancel</button>
     </form>
 
-    <div v-show="hasAdded">
-      <p style="color: green" v-show="addSuccessful">{{successMessage}}</p>
+    <div v-show="hasAdded" style="margin-top: 8px;">
+      <!-- <p style="color: green" v-show="addSuccessful">{{successMessage}}</p> -->
       <p style="color: red" v-show="!addSuccessful">Failed: {{errorMessage}}</p>
     </div>
   </div>
@@ -32,7 +35,7 @@ export default {
 
   methods: {
     async addPlayer () {
-      if (this.newPlayerName.length < 1) { return }
+      if (!this.isValidName) { return }
 
       let response = await playerApi.addPlayer(this.newPlayerName)
       this.hasAdded = true
@@ -50,6 +53,11 @@ export default {
         this.addSuccessful = false
         this.errorMessage = response.error
       }
+    },
+
+    cancelAdd () {
+      this.newPlayerName = ''
+      this.isAdding = false
     }
   },
 
