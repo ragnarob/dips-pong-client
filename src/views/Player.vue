@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Player: {{$route.params.name}}</h1>
+    <h1>{{$route.params.name}}</h1>
 
     <div style="margin-top: 20px; display: flex; align-items: center; flex-direction: column;" v-if="playerNotFound">
       <p>Player does not exist</p>
