@@ -5,6 +5,8 @@
 
       <p style="margin: 0 10px;">
         Praise Javascript
+	<br/>
+	Mangler: slette bruker, slette kampregistrering (er på server, må bare implementeres i front-end)
       </p>
 
       <div style="display: flex; flex-direction: row; width: fit-content; margin: auto; flex-wrap: wrap; justify-content: center;">
