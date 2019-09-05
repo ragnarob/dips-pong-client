@@ -32,7 +32,7 @@
         Back to index
       </router-link>
 
-      <h2 style="margin-top: 20px;">Current rating: {{$store.getters.selectedPlayer.elo}}</h2>
+      <h2 style="margin-top: 20px;">Current rating: <span class="elo">{{$store.getters.selectedPlayer.elo}}</span></h2>
 
 
       <p style="color: red" v-show="!changeNameSuccess">Failed: {{errorMessage}}</p>
@@ -51,11 +51,16 @@
           <td style="text-align: center;">{{prettyDate(game.timestamp)}}</td>
           <td :class="{'bold': game.winningPlayer === $store.getters.selectedPlayer.name}">
             <router-link :to="'/player/'+game.winningPlayer">{{game.winningPlayer}}</router-link>
-            ({{game.winnerElo}})</td>
+            (<p class="elo" style="display: inline;">{{game.winnerElo}}</p>)
+          </td>
           <td :class="{'bold': game.losingPlayer === $store.getters.selectedPlayer.name}">
             <router-link :to="'/player/'+game.losingPlayer">{{game.losingPlayer}}</router-link>
-            ({{game.loserElo}})</td>
-          <td style="text-align: center;" :class="{'winnerRating': isWinner(game), 'loserRating': !isWinner(game)}">{{calculateEloChange(game)}}</td>
+            (<p class="elo" style="display: inline;">{{game.loserElo}}</p>)
+          </td>
+          <td style="text-align: center;" 
+              :class="{'elo': true, 'winnerRating': isWinner(game), 'loserRating': !isWinner(game)}">
+            {{calculateEloChange(game)}}
+          </td>
         </tr>
       </table>
     </div>
@@ -86,7 +91,7 @@ export default {
 
       if (!response.error) {
         this.$store.dispatch('getPlayerData', this.$store.getters.selectedPlayer.name)
-        this.$router.push('/')
+        this.$router.push('/player/' + this.playerName)
         this.isChangingName = false
         this.playerName = ''
         this.changeNameSuccess = true
@@ -105,7 +110,7 @@ export default {
     },
 
     prettyDate (dateString) {
-      return (new Date(dateString)).toDateString().substring(4, 10)
+      return (new Date(dateString)).toDateString().substring(0, 10) + ', ' + ((new Date(dateString)).toTimeString().substring(0, 5))
     },
 
     calculateEloChange (game) {
@@ -122,10 +127,16 @@ export default {
     },
 
     async initialize () {
-      console.log('getting player data for ', this.$route.params.name)
       await this.$store.dispatch('getPlayerData', this.$route.params.name)
       if (!this.$store.getters.selectedPlayer) {
         this.playerNotFound = true
+      }
+    },
+
+    async checkSelectedPlayer () {
+      if (this.$store.getters.selectedPlayer && this.$store.getters.selectedPlayer.name !== this.$route.params.name) {
+        this.$store.dispatch('clearSelectedPlayer')
+        this.initialize()
       }
     }
   },
@@ -138,6 +149,10 @@ export default {
 
   async mounted () {
     this.initialize()
+  },
+
+  async beforeUpdate () {
+    this.checkSelectedPlayer()
   },
 
   beforeDestroy () {

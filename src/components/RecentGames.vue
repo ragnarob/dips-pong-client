@@ -14,14 +14,22 @@
 
         <tbody>
           <tr v-for="game in $store.getters.allGames" :key="game.gameId">
-            <td style="text-align: center;">{{prettyDate(game.timestamp)}}</td>
-            <td>
+            <td style="text-align: center;">
+              {{prettyDate(game.timestamp)}}
+            </td>
+            <td style="text-align: center;">
               <router-link :to="'/player/'+game.winningPlayer">{{game.winningPlayer}}</router-link>
+              <br>
+              <p class="elosmall">{{game.winnerElo}}</p>
             </td>
-            <td>
+            <td style="text-align: center;">
               <router-link :to="'/player/'+game.losingPlayer">{{game.losingPlayer}}</router-link>
+              <br>
+              <p class="elosmall">{{game.loserElo}}</p>
             </td>
-            <td style="text-align: center;">{{game.winnerEloChange}}</td>
+            <td style="text-align: center;" class="elo">
+              {{game.winnerEloChange}}
+            </td>
           </tr>
         </tbody>
       </table>

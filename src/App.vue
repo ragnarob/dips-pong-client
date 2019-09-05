@@ -64,4 +64,14 @@ a {
     text-decoration: underline;
   }
 }
+.elo {
+  font-family: Consolas;
+}
+.elosmall {
+  font-family: Consolas;
+  font-size: 14px;
+}
+h2 {
+  font-weight: normal;
+}
 </style>

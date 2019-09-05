@@ -10,7 +10,7 @@
               {{streak.name}}
             </router-link>
           </td>
-          <td style="text-align: right; font-family: consolas;">{{streak.streak}}</td>
+          <td style="text-align: right;" class="elo">{{streak.streak}}</td>
         </tr>
       </table>
     </div>

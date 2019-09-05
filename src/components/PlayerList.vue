@@ -9,7 +9,7 @@
               {{player.name}}
             </router-link>
           </td>
-          <td style="text-align: right; font-family: consolas;">{{player.elo}}</td>
+          <td style="text-align: right;" class="elo">{{player.elo}}</td>
         </tr>
       </table>
     </div>
