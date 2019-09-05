@@ -52,7 +52,7 @@
         <ArrowLeft/> Back to index
       </router-link>
 
-      <h2 style="margin-top: 20px;">Current rating: <span class="elo">{{$store.getters.selectedPlayer.elo}}</span></h2>
+      <h2 style="margin-top: 20px;">Current rating: <span class="elo" style="font-weight: bold">{{$store.getters.selectedPlayer.elo}}</span></h2>
 
       <p style="color: red" v-show="!changeNameSuccess">Failed: {{errorMessage}}</p>
 
@@ -68,13 +68,19 @@
         </thead>
         <tr v-for="game in $store.getters.selectedPlayer.matches" :key="game.gameId">
           <td style="text-align: center;">{{prettyDate(game.timestamp)}}</td>
-          <td :class="{'bold': game.winningPlayer === $store.getters.selectedPlayer.name}">
-            <router-link :to="'/player/'+game.winningPlayer">{{game.winningPlayer}}</router-link>
-            (<p class="elo" style="display: inline;">{{game.winnerElo}}</p>)
+          <td>
+            <router-link :to="'/player/'+game.winningPlayer" :class="{'bold': game.winningPlayer === $store.getters.selectedPlayer.name}">
+              {{game.winningPlayer}}
+            </router-link>
+            <br>
+            <p class="elosmall">{{game.winnerElo}}</p>
           </td>
-          <td :class="{'bold': game.losingPlayer === $store.getters.selectedPlayer.name}">
-            <router-link :to="'/player/'+game.losingPlayer">{{game.losingPlayer}}</router-link>
-            (<p class="elo" style="display: inline;">{{game.loserElo}}</p>)
+          <td>
+            <router-link :to="'/player/'+game.losingPlayer" :class="{'bold': game.losingPlayer === $store.getters.selectedPlayer.name}">
+              {{game.losingPlayer}}
+            </router-link>
+            <br>
+            <p class="elosmall">{{game.loserElo}}</p>
           </td>
           <td style="text-align: center;" 
               :class="{'elo': true, 'winnerRating': isWinner(game), 'loserRating': !isWinner(game)}">
@@ -215,14 +221,30 @@ export default {
     text-align: center;
   }
   h1 {
-    margin-top: 20px;
+    margin: 20px auto 0 auto;
+    max-width: 90%;
   }
   table {
+    margin-top: 2px;
     border-collapse: collapse;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    max-width: 95%;
   }
   td, th {
     padding: 4px 10px;
     border: 1px solid #e2e2e2;
+    text-align: center;
+  }
+  th {
+    padding: 8px 10px;
+  }
+  td {
+    font-size: 14px;
+    &.elo {
+      font-size: 15px;
+    }
   }
   .winnerRating {
     color: rgb(0, 107, 0);
