@@ -1,9 +1,10 @@
 <template>
   <div>
     <div>
-      <button v-if="!isAdding" @click="isAdding = true">Add game result</button>
+      <button v-if="!isAdding" @click="isAdding = true" style="width: 100%;">Add game result</button>
       
-      <form v-on:submit.prevent="addGame" v-show="isAdding" style="display: flex; flex-direction: column;">
+      <form v-on:submit.prevent="addGame" v-show="isAdding" style="display: flex; flex-direction: column; margin-bottom: 8px;">
+        <p><b>Add result</b></p>
         <p>Winner</p>
         <select v-model="winningPlayer">
           <option v-for="player in $store.getters.playerList" :key="player.id" :value="player">
@@ -11,21 +12,20 @@
           </option>
         </select>
 
-        <p style="margin-top: 10px">Loser</p>
+        <p style="margin-top: 8px">Loser</p>
         <select v-model="losingPlayer">
           <option v-for="player in $store.getters.playerList" :key="player.id" :value="player">
             {{player.name}} ({{player.elo}})
           </option>
         </select>
 
-        <span style="margin-top: 12px; width: 100%; display: flex; flex-direction: column;">
+        <span style="margin-top: 8px; width: 100%; display: flex; flex-direction: column;">
           <input type="submit" value="Submit result" :class="{'button-disabled': !isValidGame}">
-          <button @click="cancelAdd" style="margin-top: 8px;">Cancel</button>
+          <button @click="cancelAdd" style="margin-top: 4px;">Cancel</button>
         </span>
       </form>
 
       <div v-show="hasAdded" style="margin-top: 8px;">
-        <!-- <p style="color: green" v-show="addSuccessful">{{successMessage}}</p> -->
         <p style="color: red" v-show="!addSuccessful">Failed: {{errorMessage}}</p>
       </div>
     </div>
@@ -60,6 +60,7 @@ export default {
         this.addSuccessful = true
 
         this.$store.dispatch('getPlayerList')
+        this.$store.dispatch('getHotStreaks')
 
         this.successMessage = `Success recording ${this.winningPlayer.name}'s win against ${this.losingPlayer.name}`
         this.isAdding = false

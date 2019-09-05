@@ -7,4 +7,9 @@ export default {
     })
     return await response.json()
   },
+
+  async getAllGames () {
+    let response = await fetch('/api/games')
+    return await response.json()
+  },
 }

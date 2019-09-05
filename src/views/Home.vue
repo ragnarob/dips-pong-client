@@ -3,16 +3,30 @@
     <div>
       <h1 style="margin-top: 20px;">DIPS-PONG</h1>
 
-      <p style="margin: 0 10px;">Ragnars fantastiske ping-pong-webapp, velkommen!
-      Praise Javascript.</p>
+      <p style="margin: 0 10px;">
+        Praise Javascript
+      </p>
 
-      <div class="bordered">
-        <PlayerList/>
+      <div style="display: flex; flex-direction: row; width: fit-content; margin: auto;">
+        <div class="bordered">
+          <PlayerList/>
+        </div>
+
+        <div class="display: flex; flex-direction: column; align-items: center;">
+          <div class="bordered">
+            <OtherStats/>
+          </div>
+
+          <div style="display: flex; flex-direction: column; width: fit-content; margin: auto; margin-top: 50px;">
+            <AddGame/>
+            <br>
+            <AddPlayer/>
+          </div>
+        </div>
       </div>
 
-      <div class="bordered" style="width: 300px; align-items: center; justify-content: space-between; border: none;">
-        <AddPlayer/>
-        <AddGame/>
+      <div class="bordered" style="margin: 20px auto 20px auto; max-width: 85%;">
+        <RecentGames/>
       </div>
     </div>
   </div>
@@ -22,6 +36,8 @@
 import PlayerList from '@/components/PlayerList.vue'
 import AddPlayer from '@/components/AddPlayer.vue'
 import AddGame from '@/components/AddGame.vue'
+import OtherStats from '@/components/OtherStats.vue'
+import RecentGames from '@/components/RecentGames.vue'
 
 export default {
   name: 'home',
@@ -30,10 +46,14 @@ export default {
     PlayerList,
     AddPlayer,
     AddGame,
+    OtherStats,
+    RecentGames
   },
 
   created () {
     this.$store.dispatch('getPlayerList')
+    this.$store.dispatch('getHotStreaks')
+    this.$store.dispatch('getAllGames')
   }
 }
 </script>
@@ -43,10 +63,12 @@ export default {
     text-align: center;
   }
   .bordered {
-    border: 1px solid #aaa;
-    border-radius: 10px;
+    // border: 1px solid #aaa;
+    // border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     width: fit-content;
-    margin: 20px auto;
+    height: fit-content;
+    margin: 20px;
     display: flex;
     align-items: center;
     flex-direction: row;

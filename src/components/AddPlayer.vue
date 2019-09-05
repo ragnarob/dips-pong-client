@@ -1,17 +1,19 @@
 <template>
   <div>
-    <button v-show="!isAdding" @click="isAdding = true">Add new player</button>
-    <form v-on:submit.prevent="addPlayer" v-show="isAdding" style="display: flex; flex-direction: column;">
-      <p>Player name</p>
-      <input type="text" v-model="newPlayerName" style="width: 120px;"/>
-      
-      <input type="submit" value="Add player" :class="{'button-disabled': !isValidName}" style="margin-top: 12px;">
-      <button @click="cancelAdd" style="margin-top: 8px;">Cancel</button>
-    </form>
+    <div>
+      <button v-show="!isAdding" @click="isAdding = true" style="width: 100%;">Add new player</button>
+      <form v-on:submit.prevent="addPlayer" v-show="isAdding" style="display: flex; flex-direction: column; margin: 4px 0 10px 0; ">
+        <p><b>Add player</b></p>
+        <p>Player name</p>
+        <input type="text" v-model="newPlayerName"/>
+        
+        <input type="submit" value="Add player" :class="{'button-disabled': !isValidName}" style="margin-top: 4px;">
+        <button @click="cancelAdd" style="margin-top: 4px;">Cancel</button>
+      </form>
 
-    <div v-show="hasAdded" style="margin-top: 8px;">
-      <!-- <p style="color: green" v-show="addSuccessful">{{successMessage}}</p> -->
-      <p style="color: red" v-show="!addSuccessful">Failed: {{errorMessage}}</p>
+      <div v-show="hasAdded" style="margin-top: 8px;">
+        <p style="color: red" v-show="!addSuccessful">Failed: {{errorMessage}}</p>
+      </div>
     </div>
   </div>
 </template>
@@ -68,6 +70,3 @@ export default {
   }
 }
 </script>
-
-<style scoped lang="scss">
-</style>

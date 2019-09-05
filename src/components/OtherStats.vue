@@ -1,0 +1,20 @@
+<template>
+  <div> 
+    <div>
+      <h2 style="text-align: center;">Hot streaks</h2>
+
+      <table v-if="$store.getters.hotStreaks.length > 0" style="width: 100%;">
+        <tr v-for="streak in $store.getters.hotStreaks" :key="streak.name">
+          <td>{{streak.name}}</td>
+          <td style="text-align: right; font-family: consolas;">{{streak.streak}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'PlayerList',
+}
+</script>
