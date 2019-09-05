@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "vue": "^2.6.10",
+    "vue-material-design-icons": "^3.4.0",
     "vue-router": "^3.0.3",
     "vuex": "^3.0.1"
   },

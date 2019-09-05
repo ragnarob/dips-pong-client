@@ -12,4 +12,11 @@ export default {
     let response = await fetch('/api/games')
     return await response.json()
   },
+
+  async deleteGame (gameId) {
+    let response = await fetch('/api/games/' + gameId, {
+      method: 'DELETE'
+    })
+    return await response.json()
+  }
 }

@@ -50,6 +50,10 @@ button, input[type=submit] {
 .small-button {
   padding: 4px 8px;
   border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  &:hover {
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  }
 }
 .border-around {
   padding: 10px;
@@ -73,5 +77,13 @@ a {
 }
 h2 {
   font-weight: normal;
+}
+.successMessage {
+  text-align: center;
+  color: green;
+}
+.errorMessage {
+  text-align: center;
+  color: red;
 }
 </style>
