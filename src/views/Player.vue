@@ -142,7 +142,9 @@ export default {
   h1, button, a {
     text-align: center;
   }
-
+  h1 {
+    margin-top: 20px;
+  }
   table {
     border-collapse: collapse;
   }

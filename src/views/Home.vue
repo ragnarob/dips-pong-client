@@ -7,7 +7,7 @@
         Praise Javascript
       </p>
 
-      <div style="display: flex; flex-direction: row; width: fit-content; margin: auto;">
+      <div style="display: flex; flex-direction: row; width: fit-content; margin: auto; flex-wrap: wrap; justify-content: center;">
         <div class="bordered">
           <PlayerList/>
         </div>
