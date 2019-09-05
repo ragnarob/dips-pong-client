@@ -5,7 +5,7 @@
 
       <table v-if="$store.getters.hotStreaks.length > 0" style="width: 100%;">
         <tr v-for="streak in $store.getters.hotStreaks" :key="streak.name">
-          <td>{{streak.name}}</td>
+          <td style="padding-right: 10px;">{{streak.name}}</td>
           <td style="text-align: right; font-family: consolas;">{{streak.streak}}</td>
         </tr>
       </table>

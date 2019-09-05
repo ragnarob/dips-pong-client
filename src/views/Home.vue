@@ -17,7 +17,7 @@
             <OtherStats/>
           </div>
 
-          <div style="display: flex; flex-direction: column; width: fit-content; margin: 50px auto;">
+          <div style="display: flex; flex-direction: column; width: fit-content; margin: 50px auto 30px auto;">
             <AddGame/>
             <br>
             <AddPlayer/>
