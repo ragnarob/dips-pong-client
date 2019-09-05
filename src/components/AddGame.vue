@@ -1,9 +1,15 @@
 <template>
   <div>
     <div>
-      <button v-if="!isAdding" @click="isAdding = true" style="width: 100%;">Add game result</button>
+      <button v-if="!$store.state.isAddingGame"
+              @click="$store.state.isAddingGame = true"
+              class="buttonWithIconFirst">
+        <PlusIcon/> Add game result
+      </button>
       
-      <form v-on:submit.prevent="addGame" v-show="isAdding" style="display: flex; flex-direction: column; margin-bottom: 8px;">
+      <form v-on:submit.prevent="addGame"
+            v-show="$store.state.isAddingGame"
+            style="display: flex; flex-direction: column; margin-bottom: 8px;">
         <p><b>Add result</b></p>
         <p>Winner</p>
         <select v-model="winningPlayer">
@@ -19,9 +25,11 @@
           </option>
         </select>
 
-        <span style="margin-top: 8px; width: 100%; display: flex; flex-direction: column;">
-          <input type="submit" value="Submit result" :class="{'button-disabled': !isValidGame}">
-          <button @click="cancelAdd" style="margin-top: 4px;">Cancel</button>
+        <span style="margin-top: 12px; width: 100%; display: flex; flex-direction: column;">
+          <input type="submit" value="Submit result" :class="{'button-disabled': !isValidGame, 'normal-button': true}">
+          <button @click="cancelAdd" style="margin-top: 8px;" class="normal-button buttonWithIconFirst">
+            <CrossIcon/> Cancel
+          </button>
         </span>
       </form>
 
@@ -35,12 +43,19 @@
 <script>
 import gameApi from '@/api/gameApi'
 
+import CrossIcon from 'vue-material-design-icons/Close.vue'
+import PlusIcon from 'vue-material-design-icons/PlusCircle.vue'
+
 export default {
   name: 'AddGame',
+  
+  components: {
+    CrossIcon,
+    PlusIcon,
+  },
 
   data: function () {
     return {
-      isAdding: false,
       winningPlayer: undefined,
       losingPlayer: undefined,
       errorMessage: '',
@@ -64,7 +79,7 @@ export default {
         this.$store.dispatch('getAllGames')
 
         this.successMessage = `Success recording ${this.winningPlayer.name}'s win against ${this.losingPlayer.name}`
-        this.isAdding = false
+        this.$store.state.isAddingGame = false
         this.winningPlayer = undefined
         this.losingPlayer = undefined
       }
@@ -75,7 +90,7 @@ export default {
     },
 
     cancelAdd () {
-      this.isAdding = false
+      this.$store.state.isAddingGame = false
       this.winningPlayer = undefined
       this.losingPlayer = undefined 
     }

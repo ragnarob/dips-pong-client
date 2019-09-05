@@ -3,7 +3,10 @@
     <div class="player-list">
       <h2>All games</h2>
 
-      <button @click="toggleDeleteMode()" style="margin: 4px auto;" class="small-button">
+      <button @click="toggleDeleteMode()"
+              v-if="$store.getters.allGames.length > 0" 
+              style="margin: 4px auto;" 
+              class="small-button">
         <DeleteIcon v-if="!deleteModeActivated"/>
         <CrossIcon v-if="deleteModeActivated"/>
         {{deleteModeActivated ? 'Cancel deleting' : 'Delete a game'}}
@@ -18,7 +21,7 @@
             <th>Time</th>
             <th>Winner</th>
             <th>Loser</th>
-            <th>Rating<br/>change</th>
+          <th><PlusMinusIcon/> Rating&nbsp;</th>
             <th v-if="deleteModeActivated"><DeleteIconFull/></th>
           </tr>
         </thead>
@@ -45,7 +48,7 @@
                 class="deleteIcon" 
                 @click="deleteClick(game)">
               <p v-if="deletingGame && deletingGame.gameId === game.gameId">
-                <button @click="deleteConfirmed()">
+                <button @click="deleteConfirmed()" class="small-button">
                   Confirm <DeleteIconFull/>
                 </button>
               </p>
@@ -68,6 +71,7 @@ import gameApi from '@/api/gameApi'
 import DeleteIcon from 'vue-material-design-icons/DeleteOutline.vue'
 import DeleteIconFull from 'vue-material-design-icons/Delete.vue'
 import CrossIcon from 'vue-material-design-icons/Close.vue'
+import PlusMinusIcon from 'vue-material-design-icons/PlusMinus.vue'
 
 export default {
   name: 'RecentGames',
@@ -76,6 +80,7 @@ export default {
     DeleteIcon,
     DeleteIconFull,
     CrossIcon,
+    PlusMinusIcon,
   },
 
   data: function () {
@@ -120,7 +125,8 @@ export default {
     },
 
     prettyDate (dateString) {
-      return (new Date(dateString)).toDateString().substring(0, 10) + ', ' + ((new Date(dateString)).toTimeString().substring(0, 5))
+      const newDate = new Date(dateString)
+      return newDate.toDateString().substring(0,3) + ' ' + newDate.toTimeString().substring(0,5)
     },
   }
 }
@@ -135,12 +141,19 @@ export default {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
-    margin-left: auto;
-    margin-right: auto;
   }
   td, th {
+    border: 1px solid #e2e2e2;
+  }
+  th {
+    padding: 8px 10px;
+  }
+  td {
     padding: 4px 10px;
-    border: 1px solid #aaa;
+    font-size: 14px;
+    &.elo {
+      font-size: 15px;
+    }
   }
   .deleteIcon {
     text-align: center;

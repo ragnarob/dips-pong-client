@@ -11,6 +11,8 @@ export default new Vuex.Store({
     selectedPlayer: undefined,
     hotStreaks: [],
     allGames: [],
+    isAddingPlayer: false,
+    isAddingGame: false,
   },
 
   mutations: {

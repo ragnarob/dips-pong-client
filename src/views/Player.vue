@@ -6,45 +6,64 @@
       <p>Player does not exist</p>
       <br>
       <router-link :to="'/'">
-        Back to index
+        <ArrowLeft/> Back to index
       </router-link>
     </div>
 
     <div v-if="$store.getters.selectedPlayer" style="display: flex; flex-direction: column; align-items: center;">
-      <button @click="isChangingName = true" v-show="!isChangingName" style="margin-top: 4px;">
-        Change player name
+      <!-- RENAME PLAYER -->
+      <button @click="isChangingName = true" v-show="!isChangingName && !isDeletingPlayer" style="margin-top: 4px;" class="small-button">
+        <EditIcon/> Change player name
       </button>
 
-      <form v-on:submit.prevent="changePlayerName" v-show="isChangingName" style="display: flex; flex-direction: column; margin-top: 4px;">
+      <form v-on:submit.prevent="changePlayerName" 
+            v-show="isChangingName"
+            style="display: flex; flex-direction: column; margin-top: 4px; margin-bottom: 10px;">
         <span style="display: flex; flex-direction: row; align-items: center;">
-          <p style="margin-right: 4px;">Player name</p>
+          <p style="margin-right: 4px;">New player name</p>
           <input type="text" v-model="playerName" style="width: 120px;"/>
         </span>
         <span style="display: flex; flex-direction: row; align-items: center; margin-top: 4px;">
-          <input type="submit" value="Change name" :class="{'button-disabled': !isValidName}" style="margin-left: 12px;">
-          <button @click="cancelAdd()" style="margin-left: 8px;">Cancel</button>
+          <input type="submit" value="Change name" :class="{'button-disabled': !isValidName, 'small-button': true}" style="margin-left: 12px;">
+          <button @click="cancelRename()" style="margin-left: 8px;" class="small-button">
+            <CrossIcon/> Cancel rename
+          </button>
         </span>
       </form>
 
+      
+      <!-- DELETE PLAYER -->
+      <button @click="isDeletingPlayer=true" v-if="!isDeletingPlayer && !isChangingName" style="margin-top: 8px;" class="small-button">
+        <DeleteIcon/> Delete player
+      </button>
+
+      <button @click="deletePlayer()" v-if="isDeletingPlayer" style="margin-top: 4px;" class="small-button"> 
+        Confirm <DeleteIconFull/>
+      </button>
+
+      <button @click="cancelDelete()" v-if="isDeletingPlayer" style="margin-top: 8px;" class="small-button">
+        <CrossIcon/> Cancel delete
+      </button>
+
+      <!-- CONTENT  -->
       <br>
 
       <router-link :to="'/'">
-        Back to index
+        <ArrowLeft/> Back to index
       </router-link>
 
       <h2 style="margin-top: 20px;">Current rating: <span class="elo">{{$store.getters.selectedPlayer.elo}}</span></h2>
 
-
       <p style="color: red" v-show="!changeNameSuccess">Failed: {{errorMessage}}</p>
 
       <h2 style="margin-top: 20px;">Game history</h2>
-      <table>
+      <table v-if="$store.getters.selectedPlayer.matches.length > 0">
         <thead>
           <tr>
             <th>Date</th>
             <th>Winner</th>
             <th>Loser</th>
-            <th>Rating<br/>change</th>
+            <th><PlusMinusIcon/> Rating&nbsp;</th>
           </tr>
         </thead>
         <tr v-for="game in $store.getters.selectedPlayer.matches" :key="game.gameId">
@@ -63,6 +82,8 @@
           </td>
         </tr>
       </table>
+
+      <p v-else>No games yet</p>
     </div>
   </div>
 </template>
@@ -70,8 +91,26 @@
 <script>
 import playerApi from '@/api/playerApi'
 
+import DeleteIcon from 'vue-material-design-icons/DeleteOutline.vue'
+import DeleteIconFull from 'vue-material-design-icons/Delete.vue'
+import CrossIcon from 'vue-material-design-icons/Close.vue'
+import EditIcon from 'vue-material-design-icons/PencilOutline.vue'
+import ConfirmIcon from 'vue-material-design-icons/CheckBold.vue'
+import ArrowLeft from 'vue-material-design-icons/ArrowLeftCircle.vue'
+import PlusMinusIcon from 'vue-material-design-icons/PlusMinus.vue'
+
 export default {
   name: 'player',
+
+  components: {
+    DeleteIcon,
+    DeleteIconFull,
+    CrossIcon,
+    EditIcon,
+    ConfirmIcon,
+    ArrowLeft,
+    PlusMinusIcon,
+  },
 
   data: function () {
     return {
@@ -80,6 +119,7 @@ export default {
       changeNameSuccess: true,
       errorMessage: '',
       playerNotFound: false,
+      isDeletingPlayer: false,
     }
   },
 
@@ -104,9 +144,18 @@ export default {
       }
     },
 
-    cancelAdd () {
+    cancelRename () {
       this.isChangingName = false
       this.playerName = ''
+    },
+
+    async deletePlayer () {
+      await playerApi.deletePlayer(this.$route.params.name)
+      this.$router.push('/')
+    },
+
+    cancelDelete () {
+      this.isDeletingPlayer = false
     },
 
     prettyDate (dateString) {
@@ -173,7 +222,7 @@ export default {
   }
   td, th {
     padding: 4px 10px;
-    border: 1px solid #aaa;
+    border: 1px solid #e2e2e2;
   }
   .winnerRating {
     color: rgb(0, 107, 0);

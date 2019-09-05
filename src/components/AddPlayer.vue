@@ -1,14 +1,24 @@
 <template>
   <div>
     <div>
-      <button v-show="!isAdding" @click="isAdding = true" style="width: 100%;">Add new player</button>
-      <form v-on:submit.prevent="addPlayer" v-show="isAdding" style="display: flex; flex-direction: column; margin: 4px 0 10px 0; ">
+      <button v-show="!$store.state.isAddingPlayer"
+              @click="$store.state.isAddingPlayer = true"
+              style="width: 100%; margin-top: 16px;"
+              class="buttonWithIconFirst">
+        <AddUserIcon/> Add new player
+      </button>
+      <form v-on:submit.prevent="addPlayer" v-show="$store.state.isAddingPlayer" style="display: flex; flex-direction: column;">
         <p><b>Add player</b></p>
+
         <p>Player name</p>
-        <input type="text" v-model="newPlayerName"/>
+
+        <input type="text" v-model="newPlayerName" style="width: 128px;"/>
         
-        <input type="submit" value="Add player" :class="{'button-disabled': !isValidName}" style="margin-top: 4px;">
-        <button @click="cancelAdd" style="margin-top: 4px;">Cancel</button>
+        <input type="submit" value="Add player" :class="{'button-disabled': !isValidName, 'normal-button': true}" style="margin-top: 8px;">
+
+        <button @click="cancelAdd" style="margin-top: 8px;" class="normal-button buttonWithIconFirst">
+          <CrossIcon/> Cancel
+        </button>
       </form>
 
       <div v-show="hasAdded" style="margin-top: 8px;">
@@ -21,12 +31,19 @@
 <script>
 import playerApi from '@/api/playerApi'
 
+import AddUserIcon from 'vue-material-design-icons/AccountPlus.vue'
+import CrossIcon from 'vue-material-design-icons/Close.vue'
+
 export default {
   name: 'AddPlayer',
 
+  components: {
+    AddUserIcon,
+    CrossIcon,
+  },
+
   data: function () {
     return {
-      isAdding: false,
       newPlayerName: '',
       addSuccessful: false,
       hasAdded: false,
@@ -49,7 +66,7 @@ export default {
         this.successMessage = 'Success adding ' + this.newPlayerName
 
         this.newPlayerName = ''
-        this.isAdding = false
+        this.$store.state.isAddingPlayer = false
       }
       else {
         this.addSuccessful = false
@@ -59,7 +76,7 @@ export default {
 
     cancelAdd () {
       this.newPlayerName = ''
-      this.isAdding = false
+      this.$store.state.isAddingPlayer = false
     }
   },
 
