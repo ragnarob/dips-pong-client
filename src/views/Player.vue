@@ -47,11 +47,15 @@
             <th>Rating<br/>change</th>
           </tr>
         </thead>
-        <tr v-for="game in $store.getters.selectedPlayer.matches" :key="game.gameId" :class="{'winnerRow': isWinner(game), 'loserRow': !isWinner(game)}">
+        <tr v-for="game in $store.getters.selectedPlayer.matches" :key="game.gameId">
           <td style="text-align: center;">{{prettyDate(game.timestamp)}}</td>
-          <td>{{game.winningPlayer}} ({{game.winnerElo}})</td>
-          <td>{{game.losingPlayer}} ({{game.loserElo}})</td>
-          <td style="text-align: center;">{{calculateEloChange(game)}}</td>
+          <td :class="{'bold': game.winningPlayer === $store.getters.selectedPlayer.name}">
+            <router-link :to="'/player/'+game.winningPlayer">{{game.winningPlayer}}</router-link>
+            ({{game.winnerElo}})</td>
+          <td :class="{'bold': game.losingPlayer === $store.getters.selectedPlayer.name}">
+            <router-link :to="'/player/'+game.losingPlayer">{{game.losingPlayer}}</router-link>
+            ({{game.loserElo}})</td>
+          <td style="text-align: center;" :class="{'winnerRating': isWinner(game), 'loserRating': !isWinner(game)}">{{calculateEloChange(game)}}</td>
         </tr>
       </table>
     </div>
@@ -156,14 +160,13 @@ export default {
     padding: 4px 10px;
     border: 1px solid #aaa;
   }
-  .winnerRow {
-    td {
-      color: rgb(0, 107, 0);
-    }
+  .winnerRating {
+    color: rgb(0, 107, 0);
   }
-  .loserRow {
-    td {
-      color: rgb(156, 0, 0);
-    }
+  .loserRating {
+    color: rgb(156, 0, 0);
+  }
+  .bold {
+    font-weight: bold;
   }
 </style>

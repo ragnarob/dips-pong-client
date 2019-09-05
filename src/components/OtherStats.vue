@@ -5,7 +5,11 @@
 
       <table v-if="$store.getters.hotStreaks.length > 0" style="width: 100%;">
         <tr v-for="streak in $store.getters.hotStreaks" :key="streak.name">
-          <td style="padding-right: 10px;">{{streak.name}}</td>
+          <td style="padding-right: 10px;">
+            <router-link :to="'/player/' + streak.name">
+              {{streak.name}}
+            </router-link>
+          </td>
           <td style="text-align: right; font-family: consolas;">{{streak.streak}}</td>
         </tr>
       </table>
@@ -18,3 +22,13 @@ export default {
   name: 'PlayerList',
 }
 </script>
+
+<style lang="scss" scoped>
+table {
+  margin: 8px auto 0 auto;
+  width: 100%;
+  td {
+    padding: 4px 0;
+  }
+}
+</style>

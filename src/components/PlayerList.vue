@@ -2,7 +2,7 @@
   <div> 
     <div class="player-list">
       <h2 style="text-align: center;">Player ratings</h2>
-      <table style="margin: 8px auto 0 auto; width: 100%;">
+      <table>
         <tr v-for="player in $store.getters.playerList" :key="player.id">
           <td style="padding-right: 10px;">
             <router-link :to="`/player/${player.name}`">
@@ -23,7 +23,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-table td {
-  padding: 4px 0;
+table {
+  margin: 8px auto 0 auto;
+  width: 100%;
+  td {
+    padding: 4px 0;
+  }
 }
 </style>

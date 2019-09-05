@@ -15,8 +15,12 @@
         <tbody>
           <tr v-for="game in $store.getters.allGames" :key="game.gameId">
             <td style="text-align: center;">{{prettyDate(game.timestamp)}}</td>
-            <td>{{game.winningPlayer}}</td>
-            <td>{{game.losingPlayer}}</td>
+            <td>
+              <router-link :to="'/player/'+game.winningPlayer">{{game.winningPlayer}}</router-link>
+            </td>
+            <td>
+              <router-link :to="'/player/'+game.losingPlayer">{{game.losingPlayer}}</router-link>
+            </td>
             <td style="text-align: center;">{{game.winnerEloChange}}</td>
           </tr>
         </tbody>
