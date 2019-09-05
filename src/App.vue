@@ -108,6 +108,6 @@ th {
   background-color: #e2e2e2;
 }
 ::selection {
-  background-color: #fff;
+  background-color: rgba(255, 83, 83, 0.555);
 }
 </style>
