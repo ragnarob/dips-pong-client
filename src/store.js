@@ -47,6 +47,10 @@ export default new Vuex.Store({
       }
     },
 
+    clearSelectedPlayer (context) {
+      context.commit('setSelectedPlayer', undefined)
+    },
+
     async getHotStreaks (context) {
       let streakData = await playerApi.getHotStreaks()
       context.commit('setHotStreaks', streakData)

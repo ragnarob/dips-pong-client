@@ -134,7 +134,11 @@ export default {
 
   async mounted () {
     this.initialize()
-  }
+  },
+
+  beforeDestroy () {
+    this.$store.dispatch('clearSelectedPlayer')
+  },
 }
 </script>
 
