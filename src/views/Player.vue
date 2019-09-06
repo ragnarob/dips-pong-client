@@ -198,7 +198,9 @@ export default {
 
   computed: {
     isValidName () {
-      return this.playerName.length > 1 && /^[\wÆØÅæøå\s]+$/i.test(this.playerName)
+      return this.playerName.length > 1 
+        && this.playerName.length < 25
+        && /^[\wÆØÅæøå\s]+$/i.test(this.playerName)
     }
   },
 

@@ -100,10 +100,9 @@ export default {
 
     toggleDeleteMode () {
       this.deleteModeActivated = !this.deleteModeActivated
-      if (!this.deleteModeActivated) {
-        this.errorMessage = undefined
-        this.deletingGame = undefined
-      }
+      this.errorMessage = undefined
+      this.deleteGameSuccess = false
+      this.deletingGame = undefined
     },
 
     async deleteConfirmed () {
@@ -165,5 +164,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
 </style>
