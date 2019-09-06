@@ -13,6 +13,10 @@
           <td style="text-align: right;" class="elo">{{streak.streak}}</td>
         </tr>
       </table>
+
+      <p v-else style="margin-top: 14px;">
+        None at the moment
+      </p>
     </div>
   </div>
 </template>
