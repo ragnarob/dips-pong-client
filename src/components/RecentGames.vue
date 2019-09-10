@@ -18,16 +18,30 @@
       <table style="margin-top: 6px;" v-if="$store.getters.allGames.length > 0">
         <thead>
           <tr>
+            <th v-if="deleteModeActivated"><DeleteIconFull/></th>
             <th>Time</th>
             <th>Winner</th>
             <th>Loser</th>
-          <th><PlusMinusIcon/> Rating&nbsp;</th>
-            <th v-if="deleteModeActivated"><DeleteIconFull/></th>
+            <th><PlusMinusIcon/> Rating&nbsp;</th>
           </tr>
         </thead>
 
         <tbody>
           <tr v-for="game in $store.getters.allGames" :key="game.gameId">
+            <td v-if="deleteModeActivated"
+                class="deleteIcon" 
+                @click="deleteClick(game)">
+              <p v-if="deletingGame && deletingGame.gameId === game.gameId">
+                <button @click="deleteConfirmed()" class="small-button">
+                  Confirm <DeleteIconFull/>
+                </button>
+              </p>
+              <p v-else>
+                <button class="small-button">
+                  <DeleteIconFull/>
+                </button>
+              </p>
+            </td>
             <td style="text-align: center;">
               {{prettyDate(game.timestamp)}}
             </td>
@@ -43,20 +57,6 @@
             </td>
             <td style="text-align: center;" class="elo">
                 {{game.winnerEloChange}}
-            </td>
-            <td v-if="deleteModeActivated"
-                class="deleteIcon" 
-                @click="deleteClick(game)">
-              <p v-if="deletingGame && deletingGame.gameId === game.gameId">
-                <button @click="deleteConfirmed()" class="small-button">
-                  Confirm <DeleteIconFull/>
-                </button>
-              </p>
-              <p v-else>
-                <button class="small-button">
-                  <DeleteIcon/>
-                </button>
-              </p>
             </td>
           </tr>
         </tbody>
@@ -136,6 +136,7 @@ export default {
     text-align: center;
   }
   table {
+    width: 100%;
     border-collapse: collapse;
     display: block;
     overflow-x: auto;
