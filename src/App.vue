@@ -9,21 +9,10 @@ div, p, ul, li, table, td, th, tr, span, h1, h2, h3, h4 {
   margin: 0;
   padding: 0;
 }
-html {
-  // height: 100%;
-  // width: 100%;
-  // overflow: hidden;
-}
 body {
   background-color: #eee;
-  // height: 100%;
-  // overflow: hidden;
   margin: 0;
-  // background-repeat: no-repeat;
-  // background-attachment: fixed;
   font-family: Helvetica;
-  // background: linear-gradient(to right bottom, #051937, #171228, #190a1a, #12040d, #000000);
-  // color: white;
 }
 button, input[type=submit] {
   font-size: 16px;

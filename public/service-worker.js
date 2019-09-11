@@ -8,11 +8,6 @@ if (workbox) {
   workbox.routing.registerRoute(
     /\.js$/,
   )
-
-  workbox.routing.registerRoute(
-    new RegExp('/api/players'),
-    new workbox.strategies.StaleWhileRevalidate()
-  )
 } 
 else {
   console.log('Workbox failed to load')
