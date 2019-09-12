@@ -1,6 +1,6 @@
 {
-  "name": "dips-pong-client",
-  "short_name": "dips-pong-client",
+  "name": "DIPS-Pong",
+  "short_name": "DIPS-Pong",
   "icons": [
     {
       "src": "./img/icons/android-chrome-192x192.png",
