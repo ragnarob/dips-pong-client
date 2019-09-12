@@ -50,10 +50,18 @@ export default {
     RecentGames
   },
 
+  methods: {
+    updateTables () {
+      this.$store.dispatch('getPlayerList')
+      this.$store.dispatch('getHotStreaks')
+      this.$store.dispatch('getAllGames')
+    }
+  },
+
   created () {
-    this.$store.dispatch('getPlayerList')
-    this.$store.dispatch('getHotStreaks')
-    this.$store.dispatch('getAllGames')
+    this.updateTables()
+
+    setInterval(this.updateTables, 1000*60)
   }
 }
 </script>
@@ -63,8 +71,6 @@ export default {
     text-align: center;
   }
   .bordered {
-    // border: 1px solid #aaa;
-    // border-radius: 10px;
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
     width: fit-content;
     height: fit-content;
