@@ -2,12 +2,7 @@
   <div class="home">
     <div>
       <h1 style="margin-top: 20px;">DIPS-PONG</h1>
-
-      <p style="margin: 0 10px;">
-        Praise Javascript
-	<br/>
-      </p>
-
+      
       <div style="display: flex; flex-direction: row; width: fit-content; margin: auto; flex-wrap: wrap; justify-content: center;">
         <div class="bordered">
           <PlayerList/>
