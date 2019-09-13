@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import playerApi from './api/playerApi'
 import gameApi from './api/gameApi'
+import miscApi from './api/miscApi'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
     selectedPlayer: undefined,
     hotStreaks: [],
     allGames: [],
+    ratingStats: undefined,
     isAddingPlayer: false,
     isAddingGame: false,
   },
@@ -30,6 +32,11 @@ export default new Vuex.Store({
 
     setAllGames (state, allGames) {
       state.allGames = allGames
+    },
+
+    setRatingStats (state, ratingStats) {
+      state.ratingStats = ratingStats
+      console.log(state.ratingStats)
     }
   },
 
@@ -54,13 +61,19 @@ export default new Vuex.Store({
     },
 
     async getHotStreaks (context) {
-      let streakData = await playerApi.getHotStreaks()
+      let streakData = await miscApi.getHotStreaks()
       context.commit('setHotStreaks', streakData)
     },
 
     async getAllGames (context) {
       let allGames = await gameApi.getAllGames()
       context.commit('setAllGames', allGames)
+    },
+
+    async getRatingStats (context) {
+      let ratingStats = await miscApi.getRatingStats()
+      let apexRatingStats = calculateRatingStatApexChartFormat(ratingStats)
+      context.commit('setRatingStats', apexRatingStats)
     }
   },
 
@@ -69,5 +82,37 @@ export default new Vuex.Store({
     selectedPlayer: state => state.selectedPlayer,
     hotStreaks: state => state.hotStreaks,
     allGames: state => state.allGames,
+    ratingStats: state => state.ratingStats,
   }
 })
+
+function calculateRatingStatApexChartFormat (ratingStats) {
+  let dates = new Set()
+  for (const stat of ratingStats) {
+    for (const ratingStat of stat.ratings) {
+      let roundedTimeString = ratingStat.timestamp.substring(0,10)
+      dates.add(roundedTimeString)
+      ratingStat.timestamp = roundedTimeString
+    }
+  }
+
+  dates = [... dates].sort()
+
+  var seriesData = []
+
+  for (const stat of ratingStats) {
+    let playerData = {name: stat.name, data: []}
+    for (const date of dates) {
+      let rating = stat.ratings.find(r => r.timestamp === date)
+      rating = rating ? rating.elo : null
+      playerData.data.push(rating)
+    }
+
+    seriesData.push(playerData)
+  }
+
+  return {
+    series: seriesData,
+    categories: dates.map(d => new Date(d).toDateString().substring(4, 10))
+  }
+} 

@@ -25,6 +25,10 @@
         </div>
       </div>
 
+      <div v-if="$store.getters.ratingStats" class="bordered" style="margin: 20px auto 40px auto; width: 1000px; max-width: 85%;">
+        <Graph/>
+      </div>
+
       <div class="bordered" style="margin: 20px auto 20px auto; max-width: 85%;">
         <RecentGames/>
       </div>
@@ -38,6 +42,7 @@ import AddPlayer from '@/components/AddPlayer.vue'
 import AddGame from '@/components/AddGame.vue'
 import OtherStats from '@/components/OtherStats.vue'
 import RecentGames from '@/components/RecentGames.vue'
+import Graph from '@/components/Graph.vue'
 
 export default {
   name: 'home',
@@ -47,7 +52,8 @@ export default {
     AddPlayer,
     AddGame,
     OtherStats,
-    RecentGames
+    RecentGames,
+    Graph
   },
 
   methods: {
@@ -55,6 +61,7 @@ export default {
       this.$store.dispatch('getPlayerList')
       this.$store.dispatch('getHotStreaks')
       this.$store.dispatch('getAllGames')
+      this.$store.dispatch('getRatingStats')
     }
   },
 
