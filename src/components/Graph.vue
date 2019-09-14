@@ -2,13 +2,13 @@
   <div style="width: 100%;">
     <h2>Ratings graph</h2>
 
-    <div id="chart" v-if="$store.getters.ratingStats.categories.length > 1">
+    <div id="chart">
       <apexchart type=line height=300 :width="'100%'" :options="chartOptions" :series="series" />
     </div>
 
-    <p v-else style="margin-top: 14px; text-align: center;">
+    <!-- <p v-else style="margin-top: 14px; text-align: center;">
       Need at least 2 days worth of data to display graph.
-    </p>
+    </p> -->
   </div>
 </template>
 
@@ -24,18 +24,18 @@ export default {
 
   data: function () {
     return {
-      series: this.$store.getters.ratingStats.series,
+      series: this.$store.getters.ratingStats,
       chartOptions: {
         chart: {
           zoom: {
               enabled: false
           },
-          animations: {
-            enabled: false,
-          },
-          toolbar: {
-            show: false,
-          },
+          // animations: {
+          //   enabled: false,
+          // },
+          // toolbar: {
+          //   show: false,
+          // },
         },
         dataLabels: {
           enabled: false
@@ -43,14 +43,23 @@ export default {
         stroke: {
           curve: 'smooth'
         },
-        grid: {
-          row: {
-            colors: ['#f3f3f3', 'transparent'],
-            opacity: 0.5
+          grid: {
+            xaxis: {
+              showLines: true
+            },
+            yaxis: {
+              showLines: true
+            },
           },
-        },
+        // grid: {
+        //   row: {
+        //     colors: ['#f3f3f3', 'transparent'],
+        //     opacity: 0.5
+        //   },
+        // },
         xaxis: {
-          categories: this.$store.getters.ratingStats.categories,
+          type: 'datetime',
+          // categories: this.$store.getters.ratingStats.categories,
         }
       }
     }

@@ -72,8 +72,7 @@ export default new Vuex.Store({
 
     async getRatingStats (context) {
       let ratingStats = await miscApi.getRatingStats()
-      let apexRatingStats = calculateRatingStatApexChartFormat(ratingStats)
-      context.commit('setRatingStats', apexRatingStats)
+      context.commit('setRatingStats', ratingStats)
     }
   },
 
@@ -85,34 +84,3 @@ export default new Vuex.Store({
     ratingStats: state => state.ratingStats,
   }
 })
-
-function calculateRatingStatApexChartFormat (ratingStats) {
-  let dates = new Set()
-  for (const stat of ratingStats) {
-    for (const ratingStat of stat.ratings) {
-      let roundedTimeString = ratingStat.timestamp.substring(0,10)
-      dates.add(roundedTimeString)
-      ratingStat.timestamp = roundedTimeString
-    }
-  }
-
-  dates = [... dates].sort()
-
-  var seriesData = []
-
-  for (const stat of ratingStats) {
-    let playerData = {name: stat.name, data: []}
-    for (const date of dates) {
-      let rating = stat.ratings.find(r => r.timestamp === date)
-      rating = rating ? rating.elo : null
-      playerData.data.push(rating)
-    }
-
-    seriesData.push(playerData)
-  }
-
-  return {
-    series: seriesData,
-    categories: dates.map(d => new Date(d).toDateString().substring(4, 10))
-  }
-} 
