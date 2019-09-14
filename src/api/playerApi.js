@@ -1,11 +1,11 @@
 export default {
   async getPlayerList () {
-    let response = await fetch('http://localhost:8081/api/players')
+    let response = await fetch('/api/players')
     return await response.json()
   },
 
   async addPlayer (playerName) {
-    let response = await fetch('http://localhost:8081/api/players', {
+    let response = await fetch('/api/players', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({newPlayerName: playerName})
@@ -14,12 +14,12 @@ export default {
   },
 
   async getPlayerData (playerName) {
-    let response = await fetch('http://localhost:8081/api/player/' + playerName)
+    let response = await fetch('/api/player/' + playerName)
     return await response.json()
   },
 
   async changePlayerName (playerId, newPlayerName) {
-    let response = await fetch('http://localhost:8081/api/player/' + playerId, {
+    let response = await fetch('/api/player/' + playerId, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({newPlayerName: newPlayerName})
@@ -28,7 +28,7 @@ export default {
   },
 
   async deletePlayer (playerName) {
-    let response = await fetch('http://localhost:8081/api/players/' + playerName, {
+    let response = await fetch('/api/players/' + playerName, {
       method: 'DELETE'
     })
     return await response.json()
