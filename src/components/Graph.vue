@@ -28,14 +28,25 @@ export default {
       series: this.$store.getters.ratingStats,
       chartOptions: {
         chart: {
+          toolbar: {
+            show: true,
+            tools: {
+              download: false,
+              selection: false,
+              zoom: true,
+              zoomin: false,
+              zoomout: false,
+              pan: true,
+              reset: true
+            }
+          },
           zoom: {
-            enabled: false
+            enabled: true,
+            type: 'x',
+            reset: true
           },
           animations: {
             enabled: true,
-          },
-          toolbar: {
-            show: false,
           },
         },
         dataLabels: {
