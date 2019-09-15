@@ -27,11 +27,6 @@ export default {
     return await response.json()
   },
 
-  async getHotStreaks () {
-    let response = await fetch('/api/hotstreaks')
-    return await response.json()
-  },
-
   async deletePlayer (playerName) {
     let response = await fetch('/api/players/' + playerName, {
       method: 'DELETE'

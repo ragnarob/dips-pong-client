@@ -1,6 +1,8 @@
 <template>
   <div id="app">
     <router-view/>
+
+    <p style="text-align: center; font-size: 11px; margin-top: 36px; margin-bottom: 6px;"><i>Made with &lt;3, Javascript, and Vue by Ragnar</i></p>
   </div>
 </template>
 

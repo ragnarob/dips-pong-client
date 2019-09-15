@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import playerApi from './api/playerApi'
 import gameApi from './api/gameApi'
+import miscApi from './api/miscApi'
 
 Vue.use(Vuex)
 
@@ -11,6 +12,7 @@ export default new Vuex.Store({
     selectedPlayer: undefined,
     hotStreaks: [],
     allGames: [],
+    ratingStats: undefined,
     isAddingPlayer: false,
     isAddingGame: false,
   },
@@ -30,6 +32,11 @@ export default new Vuex.Store({
 
     setAllGames (state, allGames) {
       state.allGames = allGames
+    },
+
+    setRatingStats (state, ratingStats) {
+      state.ratingStats = ratingStats
+      console.log(state.ratingStats)
     }
   },
 
@@ -54,13 +61,18 @@ export default new Vuex.Store({
     },
 
     async getHotStreaks (context) {
-      let streakData = await playerApi.getHotStreaks()
+      let streakData = await miscApi.getHotStreaks()
       context.commit('setHotStreaks', streakData)
     },
 
     async getAllGames (context) {
       let allGames = await gameApi.getAllGames()
       context.commit('setAllGames', allGames)
+    },
+
+    async getRatingStats (context) {
+      let ratingStats = await miscApi.getRatingStats()
+      context.commit('setRatingStats', ratingStats)
     }
   },
 
@@ -69,5 +81,6 @@ export default new Vuex.Store({
     selectedPlayer: state => state.selectedPlayer,
     hotStreaks: state => state.hotStreaks,
     allGames: state => state.allGames,
+    ratingStats: state => state.ratingStats,
   }
 })
