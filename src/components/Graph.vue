@@ -3,7 +3,7 @@
     <h2>Ratings graph</h2>
 
     <div id="chart">
-      <apexchart type=line height=300 :width="'100%'" :options="chartOptions" :series="series" />
+      <apexchart type=line height=500 :width="'100%'" :options="chartOptions" :series="series" />
     </div>
 
     <!-- <p v-else style="margin-top: 14px; text-align: center;">
@@ -14,6 +14,7 @@
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
+Apex.colors = ['#8affad', '#ff7c43', '#fe05b4', '#766fff', '#394e2f', '#0fb1ff', '#2f4b7c', '#7745d3', '#ecf200', '#358a26', '#ca1804', '#77f9ec', '#83070b']
 
 export default {
   $mount: '#chart',
@@ -28,38 +29,39 @@ export default {
       chartOptions: {
         chart: {
           zoom: {
-              enabled: false
+            enabled: false
           },
-          // animations: {
-          //   enabled: false,
-          // },
-          // toolbar: {
-          //   show: false,
-          // },
+          animations: {
+            enabled: true,
+          },
+          toolbar: {
+            show: false,
+          },
         },
         dataLabels: {
           enabled: false
         },
         stroke: {
-          curve: 'smooth'
+          curve: 'stepline',
+          width: 3,
         },
-          grid: {
-            xaxis: {
-              showLines: true
-            },
-            yaxis: {
-              showLines: true
-            },
+        grid: {
+          xaxis: {
+            showLines: true
           },
-        // grid: {
-        //   row: {
-        //     colors: ['#f3f3f3', 'transparent'],
-        //     opacity: 0.5
-        //   },
-        // },
+          yaxis: {
+            showLines: true
+          },
+          row: {
+            colors: ['#f3f3f3', 'transparent'],
+            opacity: 0.5
+          },
+        },
         xaxis: {
           type: 'datetime',
-          // categories: this.$store.getters.ratingStats.categories,
+        },
+        subtitle: {
+          margin: 0
         }
       }
     }

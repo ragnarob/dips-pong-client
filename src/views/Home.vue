@@ -20,7 +20,7 @@
         </div>
       </div>
 
-      <div v-if="$store.getters.ratingStats" class="bordered" style="margin: 20px auto 40px auto; width: 1000px; max-width: 85%;">
+      <div v-if="$store.getters.ratingStats" class="bordered" style="margin: 20px auto 40px auto; width: 100%; max-width: 85%; padding-bottom: 0;">
         <Graph/>
       </div>
 
