@@ -5,10 +5,6 @@
     <div id="chart">
       <apexchart type=line height=500 :width="'100%'" :options="chartOptions" :series="series" />
     </div>
-
-    <!-- <p v-else style="margin-top: 14px; text-align: center;">
-      Need at least 2 days worth of data to display graph.
-    </p> -->
   </div>
 </template>
 

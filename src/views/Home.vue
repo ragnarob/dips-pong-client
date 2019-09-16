@@ -13,9 +13,13 @@
             <OtherStats/>
           </div>
 
-          <div style="display: flex; flex-direction: column; width: fit-content; margin: 50px auto 30px auto;">
+          <div style="display: flex; flex-direction: column; width: fit-content; margin: 50px auto 30px auto; align-items: center;">
             <AddGame v-if="!$store.state.isAddingPlayer"/>
             <AddPlayer v-if="!$store.state.isAddingGame"/>
+
+            <router-link :to="'/rules'" style="width: fit-content; margin-top: 16px;">
+              <BookIcon/> Game rules
+            </router-link>
           </div>
         </div>
       </div>
@@ -39,6 +43,8 @@ import OtherStats from '@/components/OtherStats.vue'
 import RecentGames from '@/components/RecentGames.vue'
 import Graph from '@/components/Graph.vue'
 
+import BookIcon from 'vue-material-design-icons/BookOpenPageVariant.vue'
+
 export default {
   name: 'home',
 
@@ -48,7 +54,8 @@ export default {
     AddGame,
     OtherStats,
     RecentGames,
-    Graph
+    Graph,
+    BookIcon,
   },
 
   methods: {

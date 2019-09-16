@@ -77,6 +77,7 @@ export default {
         this.$store.dispatch('getPlayerList')
         this.$store.dispatch('getHotStreaks')
         this.$store.dispatch('getAllGames')
+        this.$store.dispatch('getRatingStats')
 
         this.successMessage = `Success recording ${this.winningPlayer.name}'s win against ${this.losingPlayer.name}`
         this.$store.state.isAddingGame = false
