@@ -12,6 +12,8 @@
     <p>A player must win by at least two points. In the event of a tie at 10-10, the game continues until one player is ahead by two points (e.g. 12-10, 13-11, etc).</p>
 
     <h3>Serve rules</h3>
+    <p>Each player serves twice (two points), alternating.</p>
+    <p>The player with lower rating serves first.</p>
     <p>The ball must be behind the end of the table until struck.</p>
     <p>Official rules require the ball to be tossed into the air - we don't care. Just don't spin the ball with your hand.</p>
     <p>The ball must bounce once on the serving player's side of the table, go over the net, and then land on the opposing side.</p>
