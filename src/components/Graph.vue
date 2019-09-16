@@ -14,7 +14,7 @@
 
 <script>
 import VueApexCharts from 'vue-apexcharts'
-Apex.colors = ['#8affad', '#ff7c43', '#fe05b4', '#766fff', '#394e2f', '#0fb1ff', '#2f4b7c', '#7745d3', '#ecf200', '#358a26', '#ca1804', '#77f9ec', '#83070b']
+Apex.colors = ['#8affad', '#ff7c43', '#fe05b4', '#766fff', '#394e2f', '#0fb1ff', '#77f9ec', '#ca1804', '#2f4b7c', '#7745d3', '#ecf200', '#358a26', '#83070b']
 
 export default {
   $mount: '#chart',
