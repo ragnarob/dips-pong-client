@@ -213,8 +213,16 @@ export default {
     }
   },
 
+  created () {
+    if (!this.$store.getters.selectedOffice) {
+      this.$router.push('/')
+    }
+  },
+
   async mounted () {
-    this.initialize()
+    if (this.$store.getters.selectedOffice) {
+      this.initialize()
+    }
   },
 
   async beforeUpdate () {
