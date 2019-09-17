@@ -1,25 +1,25 @@
 export default {
-  async getPlayerList () {
-    let response = await fetch('/api/players')
+  async getPlayerList (officeId) {
+    let response = await fetch(`/api/players?officeId=${officeId}`)
     return await response.json()
   },
 
-  async addPlayer (playerName) {
+  async addPlayer (playerName, officeId) {
     let response = await fetch('/api/players', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({newPlayerName: playerName})
+      body: JSON.stringify({newPlayerName: playerName, officeId: officeId})
     })
     return await response.json()
   },
 
-  async getPlayerData (playerName) {
-    let response = await fetch('/api/player/' + playerName)
+  async getPlayerData (playerName, officeId) {
+    let response = await fetch(`/api/players/${playerName}?officeId=${officeId}`)
     return await response.json()
   },
 
   async changePlayerName (playerId, newPlayerName) {
-    let response = await fetch('/api/player/' + playerId, {
+    let response = await fetch('/api/players/' + playerId, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({newPlayerName: newPlayerName})
@@ -27,8 +27,8 @@ export default {
     return await response.json()
   },
 
-  async deletePlayer (playerName) {
-    let response = await fetch('/api/players/' + playerName, {
+  async deletePlayer (playerId) {
+    let response = await fetch('/api/players/' + playerId, {
       method: 'DELETE'
     })
     return await response.json()

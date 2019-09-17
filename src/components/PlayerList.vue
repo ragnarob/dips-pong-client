@@ -2,7 +2,7 @@
   <div> 
     <div class="player-list">
       <h2 style="text-align: center;">Player ratings</h2>
-      <table>
+      <table v-if="$store.getters.playerList.length > 0">
         <tr v-for="player in $store.getters.playerList" :key="player.id">
           <td style="padding-right: 10px;">
             <router-link :to="`/player/${player.name}`">
@@ -12,6 +12,10 @@
           <td style="text-align: right;" class="elo">{{player.elo}}</td>
         </tr>
       </table>
+
+      <p v-else style="margin-top: 14px; text-align: center;">
+        No players
+      </p>
     </div>
   </div>
 </template>

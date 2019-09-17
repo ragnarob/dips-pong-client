@@ -11,8 +11,13 @@
     </div>
 
     <div v-if="$store.getters.selectedPlayer" style="display: flex; flex-direction: column; align-items: center;">
+      <p style="margin: 4px 0;">League: {{$store.getters.selectedPlayer.officeName}}</p>
+
       <!-- RENAME PLAYER -->
-      <button @click="isChangingName = true" v-show="!isChangingName && !isDeletingPlayer" style="margin-top: 4px;" class="small-button">
+      <button @click="isChangingName = true"
+              v-show="!isChangingName && !isDeletingPlayer"
+              style="margin-top: 4px;"
+              class="small-button smallButtonWithIconFirst">
         <EditIcon/> Change player name
       </button>
 
@@ -33,7 +38,10 @@
 
       
       <!-- DELETE PLAYER -->
-      <button @click="isDeletingPlayer=true" v-if="!isDeletingPlayer && !isChangingName" style="margin-top: 8px;" class="small-button">
+      <button @click="isDeletingPlayer=true"
+              v-if="!isDeletingPlayer && !isChangingName"
+              style="margin-top: 8px;"
+              class="small-button smallButtonWithIconFirst">
         <DeleteIcon/> Delete player
       </button>
 
@@ -143,6 +151,7 @@ export default {
         this.changeNameSuccess = true
         this.playerNotFound = false
         this.initialize()
+        this.$store.dispatch('loadData')
       }
       else {
         this.changeNameSuccess = false
@@ -156,7 +165,7 @@ export default {
     },
 
     async deletePlayer () {
-      await playerApi.deletePlayer(this.$route.params.name)
+      await playerApi.deletePlayer(this.$store.getters.selectedPlayer.id)
       this.$router.push('/')
     },
 

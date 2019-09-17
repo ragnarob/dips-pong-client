@@ -21,9 +21,11 @@ export default {
 
   data: function () {
     return {
-      series: this.$store.getters.ratingStats,
+      series: this.$store.state.ratingStats,
+
       chartOptions: {
         chart: {
+          id: 'ratingsGraph',
           toolbar: {
             show: true,
             tools: {
@@ -74,8 +76,10 @@ export default {
     }
   },
 
-  created () {
-    console.log(this.series)
+  mounted () {
+    this.$store.watch(this.$store.getters.ratingStatsFunc, newValue => {
+      ApexCharts.exec('ratingsGraph', 'updateSeries', newValue)
+    })
   }
 }
 </script>

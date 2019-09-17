@@ -56,7 +56,7 @@ export default {
     async addPlayer () {
       if (!this.isValidName) { return }
 
-      let response = await playerApi.addPlayer(this.newPlayerName)
+      let response = await playerApi.addPlayer(this.newPlayerName, this.$store.getters.selectedOffice.id)
       this.hasAdded = true
 
       if (!response.error) {

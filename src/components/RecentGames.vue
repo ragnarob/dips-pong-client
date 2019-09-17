@@ -6,7 +6,7 @@
       <button @click="toggleDeleteMode()"
               v-if="$store.getters.allGames.length > 0" 
               style="margin: 4px auto;" 
-              class="small-button">
+              class="small-button smallButtonWithIconFirst">
         <DeleteIcon v-if="!deleteModeActivated"/>
         <CrossIcon v-if="deleteModeActivated"/>
         {{deleteModeActivated ? 'Cancel deleting' : 'Delete a game'}}
@@ -62,6 +62,8 @@
         </tbody>
       </table>
     </div>
+
+    <p v-if="$store.getters.allGames.length === 0" style="margin-top: 14px; text-align: center;">No games yet</p>
   </div>
 </template>
 

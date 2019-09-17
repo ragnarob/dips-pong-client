@@ -1,15 +1,19 @@
 export default {
-  async addGame (winningPlayerId, losingPlayerId) {
+  async addGame (winningPlayerId, losingPlayerId, officeId) {
     let response = await fetch('/api/games', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({winnerId: winningPlayerId, loserId: losingPlayerId})
+      body: JSON.stringify({
+        winnerId: winningPlayerId, 
+        loserId: losingPlayerId,
+        officeId: officeId
+      })
     })
     return await response.json()
   },
 
-  async getAllGames () {
-    let response = await fetch('/api/games')
+  async getAllGames (officeId) {
+    let response = await fetch(`/api/games?officeId=${officeId}`)
     return await response.json()
   },
 
