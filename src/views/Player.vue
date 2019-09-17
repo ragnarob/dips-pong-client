@@ -6,7 +6,7 @@
       <p>Player does not exist</p>
       <br>
       <router-link :to="'/'">
-        <ArrowLeft/> Back to index
+        <ArrowLeft/> Back to home
       </router-link>
     </div>
 
