@@ -1,5 +1,9 @@
 <template>
   <div class="home">
+    <router-link :to="'/display'" style="position: absolute; top: 3px; left: 3px; font-size: 12px;">
+      Display view
+    </router-link>
+    
     <div>
       <h1 style="margin-top: 20px;">DIPS-PONG</h1>
       
@@ -28,7 +32,7 @@
         </div>
 
         <div v-if="$store.getters.ratingStats.length > 0" class="bordered" style="margin: 20px auto 40px auto; width: 100%; max-width: 85%; padding-bottom: 0;">
-          <Graph/>
+          <Graph :chartHeight="'400'" :chartWidth="'100%'" :showTitle="true"/>
         </div>
 
         <div class="bordered" style="margin: 20px auto 20px auto; max-width: 85%;">

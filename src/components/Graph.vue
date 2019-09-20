@@ -1,9 +1,9 @@
 <template>
-  <div style="width: 100%;">
-    <h2>Ratings graph</h2>
+  <div :style="'width: 100%; height: ' + chartHeight + ';'">
+    <h2 v-show="showTitle">Ratings graph</h2>
 
-    <div id="chart">
-      <apexchart type=line height=500 :width="'100%'" :options="chartOptions" :series="series" />
+    <div id="chart" style="width: 100%; height: 100%;">
+      <apexchart type=line :height=chartHeight :width=chartWidth :options="chartOptions" :series="series" />
     </div>
   </div>
 </template>
@@ -17,7 +17,13 @@ export default {
   
   components: {
     apexchart: VueApexCharts,
-  },  
+  },
+
+  props: {
+    chartHeight: String,
+    chartWidth: String,
+    showTitle: Boolean,
+  },
 
   data: function () {
     return {
@@ -44,7 +50,7 @@ export default {
             reset: true
           },
           animations: {
-            enabled: true,
+            enabled: false,
           },
         },
         dataLabels: {
