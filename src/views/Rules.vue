@@ -9,7 +9,7 @@
     <h3 style="margin-top: 10px;">Scoring</h3>
     <p>First player to 11 points wins the match.</p>
     <p>Points are always awarded (<i>not</i> only when the scoring player is serving).</p>
-    <p>A player must win by at least two points. In the event of a tie at 10-10, the game continues until one player is ahead by two points (e.g. 12-10, 13-11, etc).</p>
+    <p>A player must win by at least two points. In the event of a tie at 10-10, the game continues until one player is ahead by two points (e.g. 12-10, 13-11, etc). From the moment the 10-10 tie occurs, each player serves <i>one</i> serve each, not two.</p>
 
     <h3>Serve rules</h3>
     <p>Each player serves twice (two points), alternating.</p>
