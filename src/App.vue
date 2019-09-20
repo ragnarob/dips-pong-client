@@ -6,6 +6,18 @@
   </div>
 </template>
 
+<script>
+export default {
+  created () {
+    let selectedOffice = window.localStorage.getItem('selectedOffice')
+    if (selectedOffice) {
+      this.$store.dispatch('setSelectedOffice', JSON.parse(selectedOffice))
+    }
+    this.$store.dispatch('getOffices')
+  }  
+}
+</script>
+
 <style lang="scss">
 div, p, ul, li, table, td, th, tr, span, h1, h2, h3, h4 {
   margin: 0;
@@ -52,6 +64,11 @@ button, input[type=submit] {
     }
   }
 }
+.row-flex {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 .border-around {
   padding: 10px;
   width: 100%;
@@ -93,6 +110,9 @@ h2 {
 }
 .buttonWithIconLast {
   padding: 8px 10px 8px 14px;
+}
+.smallButtonWithIconFirst {
+  padding: 4px 8px 4px 6px !important;
 }
 th {
   font-weight: normal;

@@ -1,35 +1,43 @@
 <template>
   <div class="home">
+    <router-link :to="'/display'" style="position: absolute; top: 3px; left: 3px; font-size: 12px;">
+      Display view
+    </router-link>
+    
     <div>
       <h1 style="margin-top: 20px;">DIPS-PONG</h1>
       
-      <div style="display: flex; flex-direction: row; width: fit-content; margin: auto; flex-wrap: wrap; justify-content: center;">
-        <div class="bordered">
-          <PlayerList/>
-        </div>
+      <OfficeSelector/>
 
-        <div class="display: flex; flex-direction: column; align-items: center;">
+      <div v-if="$store.getters.selectedOffice">
+        <div style="display: flex; flex-direction: row; width: fit-content; margin: auto; flex-wrap: wrap; justify-content: center;">
           <div class="bordered">
-            <OtherStats/>
+            <PlayerList/>
           </div>
 
-          <div style="display: flex; flex-direction: column; width: fit-content; margin: 50px auto 30px auto; align-items: center;">
-            <AddGame v-if="!$store.state.isAddingPlayer"/>
-            <AddPlayer v-if="!$store.state.isAddingGame"/>
+          <div class="display: flex; flex-direction: column; align-items: center;">
+            <div class="bordered">
+              <OtherStats/>
+            </div>
 
-            <router-link :to="'/rules'" style="width: fit-content; margin-top: 16px;">
-              <BookIcon/> Game rules
-            </router-link>
+            <div style="display: flex; flex-direction: column; width: fit-content; margin: 50px auto 30px auto; align-items: center;">
+              <AddGame v-if="!$store.state.isAddingPlayer"/>
+              <AddPlayer v-if="!$store.state.isAddingGame"/>
+
+              <router-link :to="'/rules'" style="width: fit-content; margin-top: 22px;">
+                <BookIcon/> Game rules
+              </router-link>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div v-if="$store.getters.ratingStats" class="bordered" style="margin: 20px auto 40px auto; width: 100%; max-width: 85%; padding-bottom: 0;">
-        <Graph/>
-      </div>
+        <div v-if="$store.getters.ratingStats.length > 0" class="bordered" style="margin: 20px auto 40px auto; width: 100%; max-width: 85%; padding-bottom: 0;">
+          <Graph :chartHeight="'400'" :chartWidth="'100%'" :showTitle="true"/>
+        </div>
 
-      <div class="bordered" style="margin: 20px auto 20px auto; max-width: 85%;">
-        <RecentGames/>
+        <div class="bordered" style="margin: 20px auto 20px auto; max-width: 85%;">
+          <RecentGames/>
+        </div>
       </div>
     </div>
   </div>
@@ -42,6 +50,7 @@ import AddGame from '@/components/AddGame.vue'
 import OtherStats from '@/components/OtherStats.vue'
 import RecentGames from '@/components/RecentGames.vue'
 import Graph from '@/components/Graph.vue'
+import OfficeSelector from '@/components/OfficeSelector.vue'
 
 import BookIcon from 'vue-material-design-icons/BookOpenPageVariant.vue'
 
@@ -55,23 +64,9 @@ export default {
     OtherStats,
     RecentGames,
     Graph,
+    OfficeSelector,
     BookIcon,
   },
-
-  methods: {
-    updateTables () {
-      this.$store.dispatch('getPlayerList')
-      this.$store.dispatch('getHotStreaks')
-      this.$store.dispatch('getAllGames')
-      this.$store.dispatch('getRatingStats')
-    }
-  },
-
-  created () {
-    this.updateTables()
-
-    setInterval(this.updateTables, 1000*60)
-  }
 }
 </script>
 

@@ -69,7 +69,8 @@ export default {
     async addGame () {
       if (!this.isValidGame) { return }
 
-      let response = await gameApi.addGame(this.winningPlayer.id, this.losingPlayer.id)
+      let response = await gameApi.addGame(this.winningPlayer.id, this.losingPlayer.id,
+        this.$store.getters.selectedOffice.id)
       this.hasAdded = true
       if (!response.error) {
         this.addSuccessful = true
