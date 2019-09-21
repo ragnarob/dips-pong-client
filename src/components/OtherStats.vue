@@ -14,7 +14,7 @@
         </tr>
       </table>
 
-      <p v-else style="margin-top: 14px;">
+      <p v-else style="margin-top: 14px; text-align: center;">
         None at the moment
       </p>
     </div>

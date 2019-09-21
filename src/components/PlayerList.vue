@@ -2,14 +2,31 @@
   <div> 
     <div class="player-list">
       <h2 style="text-align: center;">Player ratings</h2>
+
       <table v-if="$store.getters.playerList.length > 0">
         <tr v-for="player in $store.getters.playerList" :key="player.id">
+          <td>
+            <p v-if="player.position===1" style="color: #C9B037;">
+              <TrophyIcon/>
+            </p>
+            <p v-if="player.position===2" style="color: #B4B4B4;">
+              <TrophyIcon/>
+            </p>
+            <p v-if="player.position===3" style="color: #AD8A56;">
+              <TrophyIcon/>
+            </p>
+          </td>
           <td style="padding-right: 10px;">
             <router-link :to="`/player/${player.name}`">
               {{player.name}}
             </router-link>
           </td>
-          <td style="text-align: right;" class="elo">{{player.elo}}</td>
+          <td style="text-align: right;" :class="{'elo': true, 'noGamesStyle': player.gamesCount===0}">
+            <b>{{player.elo}}</b>
+          </td>
+          <td :class="{'elo': true, 'noGamesStyle': player.gamesCount===0}" style="padding-left: 12px;">
+            {{player.gamesCount}}
+          </td>
         </tr>
       </table>
 
@@ -21,9 +38,14 @@
 </template>
 
 <script>
+import TrophyIcon from 'vue-material-design-icons/Trophy.vue'
 
 export default {
   name: 'PlayerList',
+
+  components: {
+    TrophyIcon,
+  },
 }
 </script>
 
@@ -34,5 +56,8 @@ table {
   td {
     padding: 4px 0;
   }
+}
+.noGamesStyle {
+  opacity: 0.4;
 }
 </style>

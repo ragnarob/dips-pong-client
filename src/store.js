@@ -52,7 +52,22 @@ export default new Vuex.Store({
   actions: {
     async getPlayerList (context) {
       let playerList = await playerApi.getPlayerList(context.getters.selectedOffice.id)
-      context.commit('setPlayerList', playerList)
+      let playersWithGames = []
+      let noGamesPlayers = []
+      let positionCounter = 1
+      for (var i=0; i<playerList.length; i++) {
+        let player = playerList[i]
+        if (player.gamesCount === 1 && player.elo === 1200) {
+          player.gamesCount = 0
+          noGamesPlayers.push(player)
+        }
+        else {
+          player.position = positionCounter++
+          playersWithGames.push(player)
+        }
+      }
+      let finalPlayerList =  playersWithGames.concat(noGamesPlayers)
+      context.commit('setPlayerList', finalPlayerList)
     },
 
     async getPlayerData (context, playerName) {

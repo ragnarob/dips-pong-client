@@ -4,7 +4,7 @@
       Interactive view
     </router-link>
 
-    <div style="height: fit-content; width: 200px; margin: 0 20px 0 10px; padding: 16px;">
+    <div style="height: fit-content; width: 240px; margin: 0 20px 0 10px; padding: 16px;">
       <PlayerList v-if="showPlayerList"/>
       <OtherStats style="margin-top: 30px;"/>
     </div>
