@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <router-link :to="'/display'" style="position: absolute; top: 3px; left: 3px; font-size: 12px;">
-      Display viewssssssssssssssss
+      Display views
     </router-link>
     
     <div>
@@ -26,6 +26,10 @@
 
               <router-link :to="'/rules'" style="width: fit-content; margin-top: 22px;">
                 <BookIcon/> Game rules
+              </router-link>
+
+              <router-link :to="'/about'" style="width: fit-content; margin-top: 8px;">
+                <InformationIcon/> How stuff works
               </router-link>
             </div>
           </div>
@@ -53,6 +57,7 @@ import Graph from '@/components/Graph.vue'
 import OfficeSelector from '@/components/OfficeSelector.vue'
 
 import BookIcon from 'vue-material-design-icons/BookOpenPageVariant.vue'
+import InformationIcon from 'vue-material-design-icons/Information.vue'
 
 export default {
   name: 'home',
@@ -66,6 +71,7 @@ export default {
     Graph,
     OfficeSelector,
     BookIcon,
+    InformationIcon,
   },
 }
 </script>

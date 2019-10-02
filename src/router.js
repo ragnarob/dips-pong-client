@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Player from './views/Player.vue'
 import Rules from './views/Rules.vue'
+import About from './views/About.vue'
 import DisplayView from './views/DisplayView.vue'
 
 Vue.use(Router)
@@ -25,6 +26,11 @@ export default new Router({
       path: '/rules',
       name: 'Rules',
       component: Rules
+    },
+    {
+      path: '/about',
+      name: 'About',
+      component: About
     },
     {
       path: '/display',

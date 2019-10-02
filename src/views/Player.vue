@@ -57,7 +57,7 @@
       <br>
 
       <router-link :to="'/'">
-        <ArrowLeft/> Back to index
+        <ArrowLeft/> Back to home
       </router-link>
 
       <h2 style="margin-top: 20px;">Current rating: <span class="elo" style="font-weight: bold">{{$store.getters.selectedPlayer.elo}}</span></h2>
