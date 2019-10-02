@@ -10,7 +10,7 @@ export default new Vuex.Store({
   state: {
     playerList: [],
     selectedPlayer: undefined,
-    hotStreaks: [],
+    otherStats: undefined,
     allGames: [],
     ratingStats:  [],
     isAddingPlayer: false,
@@ -28,8 +28,8 @@ export default new Vuex.Store({
       state.selectedPlayer = selectedPlayer
     },
 
-    setHotStreaks (state, hotStreaks) {
-      state.hotStreaks = hotStreaks
+    setOtherStats (state, otherStats) {
+      state.otherStats = otherStats
     },
 
     setAllGames (state, allGames) {
@@ -84,9 +84,10 @@ export default new Vuex.Store({
       context.commit('setSelectedPlayer', undefined)
     },
 
-    async getHotStreaks (context) {
-      let streakData = await miscApi.getHotStreaks(context.getters.selectedOffice.id)
-      context.commit('setHotStreaks', streakData)
+    async getOtherStats (context) {
+      let otherStatsData = await miscApi.getOtherStats(context.getters.selectedOffice.id)
+      context.commit('setOtherStats', otherStatsData)
+      console.log(otherStatsData)
     },
 
     async getAllGames (context) {
@@ -113,7 +114,7 @@ export default new Vuex.Store({
 
     async loadData (context) {
       context.dispatch('getPlayerList')
-      context.dispatch('getHotStreaks')
+      context.dispatch('getOtherStats')
       context.dispatch('getAllGames')
       context.dispatch('getRatingStats')
     },
@@ -122,7 +123,7 @@ export default new Vuex.Store({
   getters: {
     playerList: state => state.playerList,
     selectedPlayer: state => state.selectedPlayer,
-    hotStreaks: state => state.hotStreaks,
+    otherStats: state => state.otherStats,
     allGames: state => state.allGames,
     ratingStats: state => state.ratingStats,
     ratingStatsFunc: state => () => state.ratingStats,

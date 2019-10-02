@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <router-link :to="'/display'" style="position: absolute; top: 3px; left: 3px; font-size: 12px;">
-      Display view
+      Display viewssssssssssssssss
     </router-link>
     
     <div>

@@ -1,6 +1,6 @@
 export default {
-  async getHotStreaks (officeId) {
-    let response = await fetch(`/api/hotstreaks?officeId=${officeId}`)
+  async getOtherStats (officeId) {
+    let response = await fetch(`/api/otherstats?officeId=${officeId}`)
     return await response.json()
   },
 

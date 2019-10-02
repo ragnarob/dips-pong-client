@@ -76,7 +76,7 @@ export default {
         this.addSuccessful = true
 
         this.$store.dispatch('getPlayerList')
-        this.$store.dispatch('getHotStreaks')
+        this.$store.dispatch('getOtherStats')
         this.$store.dispatch('getAllGames')
         this.$store.dispatch('getRatingStats')
 
