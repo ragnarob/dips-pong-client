@@ -2,12 +2,48 @@
   <div id="app">
     <router-view/>
 
-    <p style="text-align: center; font-size: 11px; margin-top: 36px; margin-bottom: 6px;"><i>Made with &lt;3, Javascript, and Vue by Ragnar</i></p>
+    <p style="text-align: center; font-size: 11px; margin-top: 40px; margin-bottom: 6px;">
+      <i>
+        Made with 
+        <span style="color: #ff0050;">
+          <HeartIcon title="Love"/>
+        </span>
+        + 
+        <span style="color: #e4a637;">
+          <JsIcon title="Javascript"/>
+        </span>
+        + 
+        <span style="color: #4fc08d;">
+          <VueIcon title="Vue"/>
+        </span>
+        by 
+        <span style="color: #cc4cc1;">
+          <CatIcon title="Kitty"/>
+        </span>
+        Ragnar &nbsp;&nbsp;&nbsp;
+        <a href="https://github.com/ragnarob/dips-pong-client"><GithubIcon/>client</a> |
+        <a href="https://github.com/ragnarob/dips-pong-server"><GithubIcon/>server</a>
+      </i>
+    </p>
   </div>
 </template>
 
 <script>
+import GithubIcon from 'vue-material-design-icons/GithubCircle.vue'
+import HeartIcon from 'vue-material-design-icons/Heart.vue'
+import JsIcon from 'vue-material-design-icons/LanguageJavascript.vue'
+import VueIcon from 'vue-material-design-icons/Vuejs.vue'
+import CatIcon from 'vue-material-design-icons/Cat.vue'
+
 export default {
+  components: {
+    GithubIcon,
+    HeartIcon,
+    JsIcon,
+    VueIcon,
+    CatIcon,
+  },
+
   created () {
     let selectedOffice = window.localStorage.getItem('selectedOffice')
     if (selectedOffice) {
