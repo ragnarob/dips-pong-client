@@ -77,6 +77,9 @@
     <p style="margin-top: 2px;">Games can be deleted as long as neither player involved has had a more recent game than the one being deleted.</p>
     <p>This feature is meant to be used immediately after registering a wrong result.</p>
 
+    <h3>Hosting &amp; etc</h3>
+    <p style="margin-top: 2px;">Server: Node.js with Express and MySQL running on an Ubuntu-vm hosted by Vultr.</p>
+
     <h3>More content to come here later?</h3>
     <p style="margin-top: 2px;">Stay tuned!</p>
   </div>
