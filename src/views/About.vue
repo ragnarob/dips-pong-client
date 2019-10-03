@@ -67,8 +67,8 @@
     <p><i>If players at some point travel to other offices/leagues, I might implement a feature where players can essentially steal points from the other league by winning against their players (and keep a record of which office has stolen the most points from which). This would mean that the average rating in each league would differ from 1200.</i></p>
 
     <h3>Rivalry calculation</h3>
-    <p style="margin-top: 2px;">The rivalries list will list the top three pairs of players with the highest "rivalry score".</p>
-    <p>The function is shown below, where <pre>diff</pre> is the difference in games between the two players, and <pre>total</pre> is the total number of games they've played. Improvements to this function are welcome.</p>
+    <p style="margin-top: 2px;">The rivalries lists the top three pairs of players with the highest "rivalry score".</p>
+    <p>The function for calculating score is shown below, where <pre>diff</pre> is the difference in wins between the two players, and <pre>total</pre> is the total number of games they've played against each other. Improvements to this function are welcome.</p>
     <p class="consolas-text">rivalryScore = total - ((diff + 1) * total) / 5</p>
     <p>A player pair must also have more than five games in total for the score to count.</p>
     <p>This list will work better the more games there are in a league. It might look a little silly at first. (Oslo office, I'm looking at you (at the time of writing))</p>
