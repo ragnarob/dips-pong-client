@@ -113,10 +113,12 @@ export default new Vuex.Store({
     },
 
     async loadData (context) {
-      context.dispatch('getPlayerList')
-      context.dispatch('getOtherStats')
-      context.dispatch('getAllGames')
-      context.dispatch('getRatingStats')
+      if (context.state.selectedOffice) {
+        context.dispatch('getPlayerList')
+        context.dispatch('getOtherStats')
+        context.dispatch('getAllGames')
+        context.dispatch('getRatingStats')
+      }
     },
   },
 

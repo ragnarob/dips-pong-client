@@ -170,27 +170,11 @@ export default {
       }
       else {
         return this.$store.getters.allGames.filter(
-          g => {
-            console.log(new Date(g.timestamp), this.timeThreshold, new Date(g.timestamp) > this.timeThreshold)
-            return new Date(g.timestamp) > this.timeThreshold}
+          g => ((new Date(g.timestamp)) > this.timeThreshold)
         )
       }
     }
   },
-
-  mounted () {
-    setTimeout(
-      () => {
-        console.log(
-          this.$store.getters.allGames.filter(
-          g => {
-            console.log(new Date(g.timestamp) > this.timeThreshold)
-            return new Date(g.timestamp) > this.timeThreshold}
-        )
-        )
-      }, 2000
-    )
-  }
 }
 </script>
 

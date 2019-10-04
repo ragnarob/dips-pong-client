@@ -50,7 +50,14 @@ export default {
       this.$store.dispatch('setSelectedOffice', JSON.parse(selectedOffice))
     }
     this.$store.dispatch('getOffices')
-  }  
+  },
+
+  mounted () {
+    setInterval(
+      () => this.$store.dispatch('loadData'),
+      1000*30
+    )
+  }
 }
 </script>
 
