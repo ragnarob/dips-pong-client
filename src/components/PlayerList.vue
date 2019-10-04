@@ -3,8 +3,8 @@
     <div class="player-list">
       <h2 style="text-align: center;">Player ratings</h2>
 
-      <table v-if="$store.getters.playerList.length > 0">
-        <tr v-for="player in $store.getters.playerList" :key="player.id">
+      <table v-if="filteredPlayerList.length > 0">
+        <tr v-for="player in filteredPlayerList" :key="player.id">
           <td>
             <p v-if="player.position===1" style="color: #C9B037;">
               <TrophyIcon/>
@@ -43,8 +43,25 @@ import TrophyIcon from 'vue-material-design-icons/Trophy.vue'
 export default {
   name: 'PlayerList',
 
+  props: {
+    hideInactivePlayers: Boolean  
+  },
+
   components: {
     TrophyIcon,
+  },
+
+  computed: {
+    filteredPlayerList () {
+      if (!this.hideInactivePlayers) {
+        return this.$store.getters.playerList
+      }
+      else {
+        return this.$store.getters.playerList.filter(
+          p => p.gamesCount > 0
+        )
+      }
+    }
   },
 }
 </script>

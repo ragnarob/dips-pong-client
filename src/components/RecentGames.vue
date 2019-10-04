@@ -1,10 +1,10 @@
 <template>
   <div style="max-width: 100%;"> 
-    <div class="player-list">
-      <h2>All games</h2>
+    <div class="player-list" v-if="!horizontalView">
+      <h2>Recent games</h2>
 
       <button @click="toggleDeleteMode()"
-              v-if="$store.getters.allGames.length > 0" 
+              v-if="filteredGames.length > 0" 
               style="margin: 4px auto;" 
               class="small-button smallButtonWithIconFirst">
         <DeleteIcon v-if="!deleteModeActivated"/>
@@ -15,7 +15,7 @@
       <p class="successMessage" v-if="deleteGameSuccess">Successfully deleted game</p>
       <p class="errorMessage" v-if="errorMessage">{{errorMessage}}</p>
 
-      <table style="margin-top: 6px;" v-if="$store.getters.allGames.length > 0">
+      <table style="margin-top: 6px;" v-if="filteredGames.length > 0" class="big-table">
         <thead>
           <tr>
             <th v-if="deleteModeActivated"><DeleteIconFull/></th>
@@ -27,7 +27,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="game in $store.getters.allGames" :key="game.gameId">
+          <tr v-for="game in filteredGames" :key="game.gameId">
             <td v-if="deleteModeActivated"
                 class="deleteIcon" 
                 @click="deleteClick(game)">
@@ -63,7 +63,28 @@
       </table>
     </div>
 
-    <p v-if="$store.getters.allGames.length === 0" style="margin-top: 14px; text-align: center;">No games yet</p>
+    <p v-if="$store.getters.allGames.length === 0" style="margin-top: 14px; text-align: center;">No games</p>
+
+    <div v-if="horizontalView" style="display: flex; flex-direction: row; font-size: 14px; overflow-x: auto; white-space: nowrap; height: fit-content;">
+      <table v-for="outerCounter in Math.ceil(filteredGames.length/rows)" :key="outerCounter" class="column-table">
+        <tr v-for="i in rows" :key="i" class="grid-cell">
+          <td v-if="rows*(outerCounter-1)+i-1 < filteredGames.length">
+            {{smallDate(filteredGames[rows*(outerCounter-1) + i-1].timestamp)}}
+          </td>
+          <td v-if="rows*(outerCounter-1)+i-1 < filteredGames.length">
+            <router-link :to="'/player/'+filteredGames[rows*(outerCounter-1) + i-1].winningPlayer">{{filteredGames[rows*(outerCounter-1) + i-1].winningPlayer}}</router-link>
+            <p class="elosmall">{{filteredGames[rows*(outerCounter-1) + i-1].winnerElo}}</p>
+          </td>
+          <td v-if="rows*(outerCounter-1)+i-1 < filteredGames.length">
+            <router-link :to="'/player/'+filteredGames[rows*(outerCounter-1) + i-1].losingPlayer">{{filteredGames[rows*(outerCounter-1) + i-1].losingPlayer}}</router-link>
+            <p class="elosmall">{{filteredGames[rows*(outerCounter-1) + i-1].loserElo}}</p>
+          </td>
+          <td v-if="rows*(outerCounter-1)+i-1 < filteredGames.length">
+            <PlusMinusIcon/>{{filteredGames[rows*(outerCounter-1) + i-1].winnerEloChange}}
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -85,6 +106,11 @@ export default {
     PlusMinusIcon,
   },
 
+  props: {
+    hoursCutoff: Number,
+    horizontalView: Boolean
+  },
+
   data: function () {
     return {
       deleteModeActivated: false,
@@ -92,6 +118,8 @@ export default {
       deletingGame: undefined,
       errorMessage: undefined,
       deleteGameSuccess: false,
+      timeThreshold: this.hoursCutoff ? new Date(new Date().getTime() - 1000*60*60*this.hoursCutoff) : 0,
+      rows: 3,
     }
   },
 
@@ -129,6 +157,39 @@ export default {
       const newDate = new Date(dateString)
       return newDate.toDateString().substring(0,3) + ' ' + newDate.toTimeString().substring(0,5)
     },
+    
+    smallDate (dateString) {
+      return new Date(dateString).toTimeString().substring(0,5)
+    }
+  },
+
+  computed: {
+    filteredGames () {
+      if (!this.hoursCutoff) {
+        return this.$store.getters.allGames
+      }
+      else {
+        return this.$store.getters.allGames.filter(
+          g => {
+            console.log(new Date(g.timestamp), this.timeThreshold, new Date(g.timestamp) > this.timeThreshold)
+            return new Date(g.timestamp) > this.timeThreshold}
+        )
+      }
+    }
+  },
+
+  mounted () {
+    setTimeout(
+      () => {
+        console.log(
+          this.$store.getters.allGames.filter(
+          g => {
+            console.log(new Date(g.timestamp) > this.timeThreshold)
+            return new Date(g.timestamp) > this.timeThreshold}
+        )
+        )
+      }, 2000
+    )
   }
 }
 </script>
@@ -137,7 +198,7 @@ export default {
   h2 {
     text-align: center;
   }
-  table {
+  .big-table {
     width: 100%;
     border-collapse: collapse;
     display: block;
@@ -168,5 +229,21 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .centered-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .column-table {
+    td, tr {
+      border-color: #c2c2c2;
+      text-align: center;
+    }
+    margin-right: 16px;
+    flex-shrink: 0;
+    border-collapse: collapse;
+    margin-bottom: 1px;
   }
 </style>

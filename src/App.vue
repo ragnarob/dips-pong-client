@@ -2,7 +2,7 @@
   <div id="app">
     <router-view/>
 
-    <p style="text-align: center; font-size: 11px; margin-top: 40px; margin-bottom: 6px;">
+    <p style="text-align: center; font-size: 11px; margin-top: 24px; margin-bottom: 6px;">
       <i>
         Made with 
         <span style="color: #ff0050;">
