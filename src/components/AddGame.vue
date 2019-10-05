@@ -2,7 +2,7 @@
   <div>
     <div>
       <button v-if="!$store.state.isAddingGame"
-              @click="$store.state.isAddingGame = true"
+              @click="startAddingGame()"
               class="buttonWithIconFirst">
         <PlusIcon/> Add game result
       </button>
@@ -66,6 +66,15 @@ export default {
   },
 
   methods: {
+    startAddingGame () {
+      if (this.$store.getters.isLoggedIn) {
+        this.$store.state.isAddingGame = true
+      }
+      else {
+        this.$store.dispatch('showLoginModal')
+      }
+    },
+
     async addGame () {
       if (!this.isValidGame) { return }
 

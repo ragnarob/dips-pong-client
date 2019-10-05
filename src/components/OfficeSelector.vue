@@ -34,14 +34,20 @@
       <p><b>New league</b></p>
       <div id="addOfficeGrid">
         <label style="grid-row: 1; grid-column: 1;">League name</label>
-        <input type="text" v-model="newOfficeName" style="grid-row: 1; grid-column: 2; width: 100px;"/>
+        <input type="text" v-model="newOfficeName" style="grid-row: 1; grid-column: 2; width: 140px;"/>
+
+        <label style="grid-row: 2; grid-column: 1;">League password</label>
+        <input type="text" v-model="newOfficePassword" style="grid-row: 2; grid-column: 2; width: 140px;"/>
+
+        <label style="grid-row: 3; grid-column: 1;">Password hint</label>
+        <textarea v-model="newOfficePasswordHint" placeholder="Something everyone in your office will understand" style="grid-row: 3; grid-column: 2; width: 140px; font-family: Helvetica;" rows="3"/>
 
         <!-- <label style="grid-row: 2; grid-column: 1;">Slack bot URL</label>
         <input type="text" v-model="newOfficeSlackBotUrl" style="grid-row: 2; grid-column: 2; width: 300px;"/> -->
       </div>
 
       <div class="row-flex" style="margin-top: 8px;">
-        <button @click="saveAddOffice" :class="{'button-disabled': !isValidName, 'normal-button': true}">
+        <button @click="saveAddOffice" :class="{'button-disabled': !isValidOffice, 'normal-button': true}">
           Add league
         </button>
 
@@ -56,14 +62,23 @@
       <p><b>Manage league</b></p>
       <div id="addOfficeGrid">
         <label style="grid-row: 1; grid-column: 1;">League name</label>
-        <input type="text" v-model="manageOfficeName" style="grid-row: 1; grid-column: 2; width: 100px;"/>
+        <input type="text" v-model="manageOfficeName" style="grid-row: 1; grid-column: 2; width: 140px;"/>
+
+        <label style="grid-row: 2; grid-column: 1;">Current password</label>
+        <input type="text" v-model="manageOfficeCurrentPassword" style="grid-row: 2; grid-column: 2; width: 140px;"/>
+
+        <label style="grid-row: 3; grid-column: 1;">New password</label>
+        <input type="text" v-model="manageOfficePassword" placeholder="Blank for no change" style="grid-row: 3; grid-column: 2; width: 140px;"/>
+
+        <label style="grid-row: 4; grid-column: 1;">Password hint</label>
+        <textarea v-model="manageOfficePasswordHint" placeholder="Something everyone in your office will understand" style="grid-row: 4; grid-column: 2; width: 140px; font-family: Helvetica;" rows="3"/>
 
         <!-- <label style="grid-row: 2; grid-column: 1;">Slack bot URL</label>
         <input type="text" v-model="manageOfficeSlackBotUrl" style="grid-row: 2; grid-column: 2; width: 300px;"/> -->
       </div>
 
       <div class="row-flex" style="margin-top: 8px;">
-        <button @click="saveManageOffice" :class="{'button-disabled': !isValidName, 'normal-button': true}">
+        <button @click="saveManageOffice" :class="{'button-disabled': !isValidOffice, 'normal-button': true}">
           Save
         </button>
 
@@ -100,8 +115,13 @@ export default {
       isAddingOffice: false,
       newOfficeName: '',
       newOfficeSlackBotUrl: '',
+      newOfficePassword: '',
+      newOfficePasswordHint: '',
       manageOfficeName: '',
       manageOfficeId: undefined,
+      manageOfficeCurrentPassword: '',
+      manageOfficePassword: '',
+      manageOfficePasswordHint: '',
       manageOfficeSlackBotUrl: '',
       previousOfficeCopy: undefined,
     }
@@ -116,9 +136,9 @@ export default {
     },
 
     async saveAddOffice () {
-      if (!this.isValidName) { return }
+      if (!this.isValidOffice) { return }
 
-      let response = await miscApi.addOffice(this.newOfficeName, this.newOfficeSlackBotUrl)
+      let response = await miscApi.addOffice(this.newOfficeName, this.newOfficePassword, this.newOfficePasswordHint, this.newOfficeSlackBotUrl)
       if (!response.error) {
         this.$store.dispatch('setSelectedOffice', response)
         await this.$store.dispatch('getOffices')
@@ -130,6 +150,8 @@ export default {
     cancelAddOffice (resetToPreviousOffice=true) {
       this.isAddingOffice = false
       this.newOfficeName = ''
+      this.newOfficePassword = ''
+      this.newOfficePasswordHint = ''
       this.newOfficeSlackBotUrl = ''
       if (resetToPreviousOffice && this.previousOfficeCopy) {
         this.$store.dispatch('setSelectedOffice', this.previousOfficeCopy)
@@ -138,18 +160,24 @@ export default {
     },
 
     manageOffice () {
-      this.isManagingOffice = true
-      this.manageOfficeName = this.$store.getters.selectedOffice.name
-      this.manageOfficeId = this.$store.getters.selectedOffice.id
-      this.manageOfficeSlackBotUrl = this.$store.getters.selectedOffice.slackBotUrl || ''
-      this.previousOfficeCopy = this.$store.getters.selectedOffice
-      this.$store.dispatch('setSelectedOffice', undefined)
+      if (this.$store.getters.isLoggedIn) {
+        this.isManagingOffice = true
+        this.manageOfficeName = this.$store.getters.selectedOffice.name
+        this.manageOfficeId = this.$store.getters.selectedOffice.id
+        this.manageOfficePasswordHint = this.$store.getters.selectedOffice.passwordHint
+        this.manageOfficeSlackBotUrl = this.$store.getters.selectedOffice.slackBotUrl || ''
+        this.previousOfficeCopy = this.$store.getters.selectedOffice
+        this.$store.dispatch('setSelectedOffice', undefined)
+      }
+      else {
+        this.$store.dispatch('showLoginModal')
+      }
     },
 
     async saveManageOffice () {
-      if (!this.isValidName) { return }
+      if (!this.isValidOffice) { return }
 
-      let response = await miscApi.updateOffice(this.manageOfficeId, this.manageOfficeName, this.manageOfficeSlackBotUrl)
+      let response = await miscApi.updateOffice(this.manageOfficeId, this.manageOfficeName, this.manageOfficeCurrentPassword, this.manageOfficePassword, this.manageOfficePasswordHint, this.manageOfficeSlackBotUrl)
       if (!response.error) {
         this.$store.dispatch('setSelectedOffice', response)
         await this.$store.dispatch('getOffices')
@@ -161,6 +189,9 @@ export default {
     cancelManageOffice (resetToPreviousOffice=true) {
       this.isManagingOffice = false
       this.manageOfficeName = ''
+      this.manageOfficeCurrentPassword = ''
+      this.manageOfficePassword = ''
+      this.manageOfficePasswordHint = ''
       this.manageOfficeId = undefined
       this.manageOfficeSlackBotUrl = ''
       if (resetToPreviousOffice) {
@@ -183,8 +214,22 @@ export default {
   },
 
   computed: {
-    isValidName () {
-      return this.newOfficeName.length > 3 || this.manageOfficeName.length > 3
+    isValidOffice () {
+      return isValidNewOffice(this.newOfficeName, this.newOfficePassword, this.newOfficePasswordHint)
+        || isValidManageOffice(this.manageOfficeName, this.manageOfficeCurrentPassword, this.manageOfficePassword, this.manageOfficePasswordHint)
+      
+      function isValidManageOffice (officeName, currentPassword, newPassword, passwordHint) {
+        return officeName.length > 0 &&
+               currentPassword && currentPassword.length > 3 &&
+               (!newPassword || newPassword && newPassword.length > 3) &&
+               passwordHint && passwordHint.length > 3
+      }
+
+      function isValidNewOffice (newOfficeName, newOfficePassword, newOfficePasswordHint) {
+        return newOfficeName && newOfficeName.length > 0 && 
+               newOfficePassword && newOfficePassword.length > 3 &&
+               newOfficePasswordHint && newOfficePasswordHint.length > 3
+      }
     }
   },
 

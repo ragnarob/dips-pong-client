@@ -14,7 +14,7 @@
       <p style="margin: 4px 0;">League: {{$store.getters.selectedPlayer.officeName}}</p>
 
       <!-- RENAME PLAYER -->
-      <button @click="isChangingName = true"
+      <button @click="startChangingName()"
               v-show="!isChangingName && !isDeletingPlayer"
               style="margin-top: 4px;"
               class="small-button smallButtonWithIconFirst">
@@ -36,9 +36,11 @@
         </span>
       </form>
 
+      <p class="error-message" v-show="!changeNameSuccess">Failed: {{errorMessage}}</p>
+
       
       <!-- DELETE PLAYER -->
-      <button @click="isDeletingPlayer=true"
+      <button @click="startDeletingPlayer()"
               v-if="!isDeletingPlayer && !isChangingName"
               style="margin-top: 8px;"
               class="small-button smallButtonWithIconFirst">
@@ -61,8 +63,6 @@
       </router-link>
 
       <h2 style="margin-top: 20px;">Current rating: <span class="elo" style="font-weight: bold">{{$store.getters.selectedPlayer.elo}}</span></h2>
-
-      <p style="color: red" v-show="!changeNameSuccess">Failed: {{errorMessage}}</p>
 
       <h2 style="margin-top: 20px;">Game history</h2>
       <table v-if="$store.getters.selectedPlayer.matches.length > 0">
@@ -138,6 +138,24 @@ export default {
   },
 
   methods: {
+    startChangingName () {
+      if (this.$store.getters.isLoggedIn) {
+        this.isChangingName = true
+      }
+      else {
+        this.$store.dispatch('showLoginModal')
+      }
+    },
+
+    startDeletingPlayer () {
+      if (this.$store.getters.isLoggedIn) {
+        this.isDeletingPlayer = true
+      }
+      else {
+        this.$store.dispatch('showLoginModal')
+      }
+    },
+
     async changePlayerName () {
       if (!this.isValidName) { return }
 

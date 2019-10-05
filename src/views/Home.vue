@@ -3,6 +3,10 @@
     <router-link :to="'/display'" style="position: absolute; top: 3px; left: 3px; font-size: 12px;">
       Display view
     </router-link>
+
+    <p v-show="$store.getters.loggedInOffice" style="position: absolute; top: 3px; right: 3px; font-size: 12px;">
+      Logged in: {{$store.getters.loggedInOffice}}
+    </p>
     
     <div>
       <h1 style="margin-top: 20px;">DIPS-PONG</h1>

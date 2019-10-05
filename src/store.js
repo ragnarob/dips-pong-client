@@ -17,6 +17,9 @@ export default new Vuex.Store({
     isAddingGame: false,
     offices: [],
     selectedOffice: undefined,
+    showLoginModal: false,
+    isLoggedIn: false,
+    loggedInOffice: '',
   },
 
   mutations: {
@@ -46,6 +49,14 @@ export default new Vuex.Store({
 
     setOffices (state, offices) {
       state.offices = offices
+    },
+
+    setShowLoginModal (state, showLoginModal) {
+      state.showLoginModal = showLoginModal
+    },
+
+    setLoggedInOffice (state, loggedInOffice) {
+      state.loggedInOffice = loggedInOffice
     }
   },
 
@@ -120,6 +131,15 @@ export default new Vuex.Store({
         context.dispatch('getRatingStats')
       }
     },
+
+    showLoginModal (context) {
+      context.commit('setShowLoginModal', true)
+    },
+
+    setLoggedInOffice (context, loggedInOffice) {
+      context.commit('setLoggedInOffice', loggedInOffice)
+      window.localStorage.setItem('loggedInOffice', loggedInOffice)
+    },
   },
 
   getters: {
@@ -131,5 +151,8 @@ export default new Vuex.Store({
     ratingStatsFunc: state => () => state.ratingStats,
     offices: state => state.offices,
     selectedOffice: state => state.selectedOffice,
+    showLoginModal: state => state.showLoginModal,
+    loggedInOffice: state => state.loggedInOffice,
+    isLoggedIn: state => state.loggedInOffice && state.selectedOffice && (state.selectedOffice.name == state.loggedInOffice),
   }
 })
