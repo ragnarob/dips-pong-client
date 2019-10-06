@@ -37,4 +37,19 @@ export default {
     })
     return response.data
   },
+
+  async getRatingSystems () {
+    let response = await axios.get(`${apiUrlBase}/api/testratingsystem/systems`)
+    return response.data
+  },
+
+  async getSampleOutcomes () {
+    let response = await axios.get(`${apiUrlBase}/api/testratingsystem/samples`)
+    return response.data
+  },
+
+  async simulateRatingSystem (ratingSystemName, officeId) {
+    let response = await axios.get(`${apiUrlBase}/api/testratingsystem/${ratingSystemName}?officeId=${officeId}`)
+    return response.data
+  }
 }

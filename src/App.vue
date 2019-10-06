@@ -127,6 +127,11 @@ button, input[type=submit] {
   flex-direction: row;
   align-items: center;
 }
+.col-flex {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .border-around {
   padding: 10px;
   width: 100%;

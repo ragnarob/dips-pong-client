@@ -98,7 +98,6 @@ export default new Vuex.Store({
     async getOtherStats (context) {
       let otherStatsData = await miscApi.getOtherStats(context.getters.selectedOffice.id)
       context.commit('setOtherStats', otherStatsData)
-      console.log(otherStatsData)
     },
 
     async getAllGames (context) {
