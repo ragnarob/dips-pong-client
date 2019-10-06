@@ -152,7 +152,7 @@ export default {
         this.deleteGameSuccess = true
         this.$store.dispatch('getAllGames')
         this.$store.dispatch('getPlayerList')
-        this.$store.dispatch('otherStats')
+        this.$store.dispatch('getOtherStats')
       }
 
       this.deletingGame = undefined

@@ -29,7 +29,9 @@
           <input type="text" v-model="playerName" style="width: 120px;"/>
         </span>
         <span style="display: flex; flex-direction: row; align-items: center; margin-top: 4px;">
-          <input type="submit" value="Change name" :class="{'button-disabled': !isValidName, 'small-button': true}" style="margin-left: 12px;">
+          <button type="submit" :class="{'button-disabled': !isValidName, 'small-button': true, 'smallButtonWithIconFirst': true}" style="margin-left: 12px;">
+            <CheckIcon/> Change name
+          </button>
           <button @click="cancelRename()" style="margin-left: 8px;" class="small-button">
             <CrossIcon/> Cancel rename
           </button>
@@ -144,6 +146,7 @@ import EditIcon from 'vue-material-design-icons/PencilOutline.vue'
 import ConfirmIcon from 'vue-material-design-icons/CheckBold.vue'
 import ArrowLeft from 'vue-material-design-icons/ArrowLeftCircle.vue'
 import PlusMinusIcon from 'vue-material-design-icons/PlusMinus.vue'
+import CheckIcon from 'vue-material-design-icons/CheckBold.vue'
 
 export default {
   name: 'player',
@@ -156,6 +159,7 @@ export default {
     ConfirmIcon,
     ArrowLeft,
     PlusMinusIcon,
+    CheckIcon,
   },
 
   data: function () {

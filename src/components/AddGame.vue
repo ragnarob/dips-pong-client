@@ -26,7 +26,9 @@
         </select>
 
         <span style="margin-top: 12px; width: 100%; display: flex; flex-direction: column;">
-          <input type="submit" value="Submit result" :class="{'button-disabled': !isValidGame, 'normal-button': true}">
+          <button type="submit" value="Submit result" :class="{'button-disabled': !isValidGame, 'normal-button': true, 'buttonWithIconFirst': true}">
+            <CheckIcon/> Submit result
+          </button>
           <button @click="cancelAdd" style="margin-top: 8px;" class="normal-button buttonWithIconFirst">
             <CrossIcon/> Cancel
           </button>
@@ -45,6 +47,7 @@ import gameApi from '@/api/gameApi'
 
 import CrossIcon from 'vue-material-design-icons/Close.vue'
 import PlusIcon from 'vue-material-design-icons/PlusCircle.vue'
+import CheckIcon from 'vue-material-design-icons/CheckBold.vue'
 
 export default {
   name: 'AddGame',
@@ -52,6 +55,7 @@ export default {
   components: {
     CrossIcon,
     PlusIcon,
+    CheckIcon,
   },
 
   data: function () {

@@ -14,7 +14,9 @@
 
         <input type="text" v-model="newPlayerName" style="width: 128px;"/>
         
-        <input type="submit" value="Add player" :class="{'button-disabled': !isValidName, 'normal-button': true}" style="margin-top: 8px;">
+        <button type="submit" :class="{'button-disabled': !isValidName, 'normal-button': true, 'buttonWithIconFirst': true}" style="margin-top: 8px;">
+          <CheckIcon/> Add player
+        </button>
 
         <button @click="cancelAdd" style="margin-top: 8px;" class="normal-button buttonWithIconFirst">
           <CrossIcon/> Cancel
@@ -33,6 +35,7 @@ import playerApi from '@/api/playerApi'
 
 import AddUserIcon from 'vue-material-design-icons/AccountPlus.vue'
 import CrossIcon from 'vue-material-design-icons/Close.vue'
+import CheckIcon from 'vue-material-design-icons/CheckBold.vue'
 
 export default {
   name: 'AddPlayer',
@@ -40,6 +43,7 @@ export default {
   components: {
     AddUserIcon,
     CrossIcon,
+    CheckIcon,
   },
 
   data: function () {

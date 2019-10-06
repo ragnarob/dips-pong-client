@@ -47,8 +47,8 @@
       </div>
 
       <div class="row-flex" style="margin-top: 8px;">
-        <button @click="saveAddOffice" :class="{'button-disabled': !isValidOffice, 'normal-button': true}">
-          Add league
+        <button @click="saveAddOffice" :class="{'button-disabled': !isValidOffice, 'normal-button': true, 'buttonWithIconFirst': true}">
+          <CheckIcon/> Add league
         </button>
 
         <button @click="cancelAddOffice" class="normal-button buttonWithIconFirst" style="margin-left: 10px;">
@@ -78,8 +78,8 @@
       </div>
 
       <div class="row-flex" style="margin-top: 8px;">
-        <button @click="saveManageOffice" :class="{'button-disabled': !isValidOffice, 'normal-button': true}">
-          Save
+        <button @click="saveManageOffice" :class="{'button-disabled': !isValidOffice, 'normal-button': true, 'buttonWithIconFirst': true}">
+          <CheckIcon/> Save
         </button>
 
         <button @click="cancelManageOffice"
@@ -98,6 +98,7 @@ import miscApi from '@/api/miscApi'
 import SettingsIcon from 'vue-material-design-icons/Settings.vue'
 import PlusIcon from 'vue-material-design-icons/Plus.vue'
 import CrossIcon from 'vue-material-design-icons/Close.vue'
+import CheckIcon from 'vue-material-design-icons/CheckBold.vue'
 
 export default {
   name: 'OfficeSelector',
@@ -106,6 +107,7 @@ export default {
     SettingsIcon,
     PlusIcon,
     CrossIcon,
+    CheckIcon,
   },
 
   data: function () {

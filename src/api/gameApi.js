@@ -17,7 +17,7 @@ export default {
   },
 
   async deleteGame (gameId) {
-    let respose = await axios.delete(`${apiUrlBase}/api/games/${gameId}`)
+    let response = await axios.delete(`${apiUrlBase}/api/games/${gameId}`)
     return response.data
   },
 }
