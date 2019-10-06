@@ -2,6 +2,8 @@
   <div id="app">
     <router-view/>
 
+    <LoginModal v-if="$store.getters.showLoginModal"/>
+
     <p style="text-align: center; font-size: 11px; margin-top: 24px; margin-bottom: 6px;">
       <i>
         Made with 
@@ -29,6 +31,8 @@
 </template>
 
 <script>
+import LoginModal from '@/components/LoginModal.vue'
+
 import GithubIcon from 'vue-material-design-icons/GithubCircle.vue'
 import HeartIcon from 'vue-material-design-icons/Heart.vue'
 import JsIcon from 'vue-material-design-icons/LanguageJavascript.vue'
@@ -37,6 +41,7 @@ import CatIcon from 'vue-material-design-icons/Cat.vue'
 
 export default {
   components: {
+    LoginModal,
     GithubIcon,
     HeartIcon,
     JsIcon,
@@ -57,6 +62,13 @@ export default {
       () => this.$store.dispatch('loadData'),
       1000*30
     )
+
+    setTimeout( () => {
+      let loggedInOffice = window.localStorage.getItem('loggedInOffice')
+      if (loggedInOffice) {
+        this.$store.dispatch('setLoggedInOffice', loggedInOffice)
+      }
+    }, 400)
   }
 }
 </script>
@@ -107,9 +119,17 @@ button, input[type=submit] {
     }
   }
 }
+.error-message {
+  color: red;
+}
 .row-flex {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+.col-flex {
+  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 .border-around {
@@ -150,6 +170,9 @@ h2 {
 }
 .buttonWithIconFirst {
   padding: 8px 14px 8px 10px;
+  span {
+    margin-top: 1px;
+  }
 }
 .buttonWithIconLast {
   padding: 8px 10px 8px 14px;

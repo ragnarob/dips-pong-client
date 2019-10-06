@@ -1,34 +1,55 @@
+const axios = require('axios')
+const apiUrlBase = require('../config.json').apiUrlBase
+
 export default {
   async getOtherStats (officeId) {
-    let response = await fetch(`/api/otherstats?officeId=${officeId}`)
-    return await response.json()
+    let response = await axios.get(`${apiUrlBase}/api/otherstats?officeId=${officeId}`)
+    return response.data
   },
 
   async getRatingStats (officeId) {
-    let response = await fetch(`/api/ratingstats?officeId=${officeId}`)
-    return await response.json()
+    let response = await axios.get(`${apiUrlBase}/api/ratingstats?officeId=${officeId}`)
+    return response.data
   },
 
   async getOffices () {
-    let response = await fetch('/api/offices')
-    return await response.json()
+    let response = await axios.get(`${apiUrlBase}/api/offices`)
+    return response.data
   },
 
-  async addOffice (officeName, slackBotUrl) {
-    let response = await fetch(`/api/offices`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({officeName: officeName, slackBotUrl: slackBotUrl})
+  async addOffice (officeName, officePassword, passwordHint, slackBotUrl) {
+    let response = await axios.post(`${apiUrlBase}/api/offices`, {
+      officeName: officeName, officePassword: officePassword, passwordHint: passwordHint, slackBotUrl: slackBotUrl
     })
-    return await response.json()
+    return response.data
   },
 
-  async updateOffice (officeId, newOfficeName, newSlackBotUrl) {
-    let response = await fetch(`/api/offices/${officeId}`, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({officeName: newOfficeName, slackBotUrl: newSlackBotUrl})
+  async updateOffice (officeId, newOfficeName, currentPassword, newPassword, passwordHint, newSlackBotUrl) {
+    let response = await axios.post(`${apiUrlBase}/api/offices/${officeId}`, {
+      officeName: newOfficeName, currentPassword: currentPassword, newPassword: newPassword, passwordHint: passwordHint, slackBotUrl: newSlackBotUrl
     })
-    return await response.json()
+    return response.data
+  },
+
+  async login (officeId, password) {
+    let response = await axios.post(`${apiUrlBase}/login`, {
+      officeId: officeId, password: password
+    })
+    return response.data
+  },
+
+  async getRatingSystems () {
+    let response = await axios.get(`${apiUrlBase}/api/testratingsystem/systems`)
+    return response.data
+  },
+
+  async getSampleOutcomes () {
+    let response = await axios.get(`${apiUrlBase}/api/testratingsystem/samples`)
+    return response.data
+  },
+
+  async simulateRatingSystem (ratingSystemName, officeId) {
+    let response = await axios.get(`${apiUrlBase}/api/testratingsystem/${ratingSystemName}?officeId=${officeId}`)
+    return response.data
   }
 }

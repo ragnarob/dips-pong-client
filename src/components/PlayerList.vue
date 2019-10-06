@@ -1,7 +1,7 @@
 <template>
   <div> 
     <div class="player-list">
-      <h2 style="text-align: center;">Player ratings</h2>
+      <h2 style="text-align: center;" v-if="!hideHeader">Player ratings</h2>
 
       <table v-if="filteredPlayerList.length > 0">
         <tr v-for="player in filteredPlayerList" :key="player.id">
@@ -44,7 +44,9 @@ export default {
   name: 'PlayerList',
 
   props: {
-    hideInactivePlayers: Boolean  
+    hideInactivePlayers: Boolean,
+    listToUse: Array,
+    hideHeader: Boolean,
   },
 
   components: {
@@ -53,13 +55,18 @@ export default {
 
   computed: {
     filteredPlayerList () {
-      if (!this.hideInactivePlayers) {
-        return this.$store.getters.playerList
+      if (!this.listToUse) {
+        if (!this.hideInactivePlayers) {
+          return this.$store.getters.playerList
+        }
+        else {
+          return this.$store.getters.playerList.filter(
+            p => p.gamesCount > 0
+          )
+        }
       }
       else {
-        return this.$store.getters.playerList.filter(
-          p => p.gamesCount > 0
-        )
+        return this.listToUse
       }
     }
   },

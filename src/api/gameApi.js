@@ -1,26 +1,23 @@
+const axios = require('axios')
+const apiUrlBase = require('../config.json').apiUrlBase
+
 export default {
   async addGame (winningPlayerId, losingPlayerId, officeId) {
-    let response = await fetch('/api/games', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        winnerId: winningPlayerId, 
-        loserId: losingPlayerId,
-        officeId: officeId
-      })
+    let response = await axios.post(apiUrlBase + '/api/games', {
+      winnerId: winningPlayerId, 
+      loserId: losingPlayerId,
+      officeId: officeId
     })
-    return await response.json()
+    return response.data
   },
 
   async getAllGames (officeId) {
-    let response = await fetch(`/api/games?officeId=${officeId}`)
-    return await response.json()
+    let response = await axios.get(`${apiUrlBase}/api/games?officeId=${officeId}`)
+    return response.data
   },
 
   async deleteGame (gameId) {
-    let response = await fetch('/api/games/' + gameId, {
-      method: 'DELETE'
-    })
-    return await response.json()
-  }
+    let respose = await axios.delete(`${apiUrlBase}/api/games/${gameId}`)
+    return response.data
+  },
 }

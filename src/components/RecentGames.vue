@@ -129,10 +129,15 @@ export default {
     },
 
     toggleDeleteMode () {
-      this.deleteModeActivated = !this.deleteModeActivated
-      this.errorMessage = undefined
-      this.deleteGameSuccess = false
-      this.deletingGame = undefined
+      if (this.$store.getters.isLoggedIn) {
+        this.deleteModeActivated = !this.deleteModeActivated
+        this.errorMessage = undefined
+        this.deleteGameSuccess = false
+        this.deletingGame = undefined
+      }
+      else {
+        this.$store.dispatch('showLoginModal')
+      }
     },
 
     async deleteConfirmed () {

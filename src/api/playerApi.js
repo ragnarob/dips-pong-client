@@ -1,36 +1,33 @@
+const axios = require('axios')
+const apiUrlBase = require('../config.json').apiUrlBase
+
 export default {
   async getPlayerList (officeId) {
-    let response = await fetch(`/api/players?officeId=${officeId}`)
-    return await response.json()
+    let response = await axios.get(`${apiUrlBase}/api/players?officeId=${officeId}`)
+    return response.data
   },
 
   async addPlayer (playerName, officeId) {
-    let response = await fetch('/api/players', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({newPlayerName: playerName, officeId: officeId})
+    let response = await axios.post(`${apiUrlBase}/api/players`, {
+      newPlayerName: playerName, officeId: officeId
     })
-    return await response.json()
+    return response.data
   },
 
   async getPlayerData (playerName, officeId) {
-    let response = await fetch(`/api/players/${playerName}?officeId=${officeId}`)
-    return await response.json()
+    let response = await axios.get(`${apiUrlBase}/api/players/${playerName}?officeId=${officeId}`)
+    return response.data
   },
 
   async changePlayerName (playerId, newPlayerName) {
-    let response = await fetch('/api/players/' + playerId, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({newPlayerName: newPlayerName})
+    let response = await axios.post(`${apiUrlBase}/api/players/${playerId}`, {
+      newPlayerName: newPlayerName
     })
-    return await response.json()
+    return response.data
   },
 
   async deletePlayer (playerId) {
-    let response = await fetch('/api/players/' + playerId, {
-      method: 'DELETE'
-    })
-    return await response.json()
-  }
+    let response = await axios.delete(`${apiUrlBase}/api/players/${playerId}`)
+    return response.data
+  },
 }

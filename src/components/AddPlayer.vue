@@ -2,7 +2,7 @@
   <div>
     <div>
       <button v-show="!$store.state.isAddingPlayer"
-              @click="$store.state.isAddingPlayer = true"
+              @click="startAddingPlayer()"
               style="width: 100%; margin-top: 16px;"
               class="buttonWithIconFirst">
         <AddUserIcon/> Add new player
@@ -53,6 +53,15 @@ export default {
   },
 
   methods: {
+    startAddingPlayer () {
+      if (this.$store.getters.isLoggedIn) {
+        this.$store.state.isAddingPlayer = true
+      }
+      else {
+        this.$store.dispatch('showLoginModal')
+      }
+    },
+
     async addPlayer () {
       if (!this.isValidName) { return }
 

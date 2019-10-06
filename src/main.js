@@ -3,6 +3,9 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+const axios = require('axios')
+axios.defaults.withCredentials = true
+
 import 'vue-material-design-icons/styles.css'
 
 Vue.config.productionTip = false
