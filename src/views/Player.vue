@@ -64,6 +64,38 @@
 
       <h2 style="margin-top: 20px;">Current rating: <span class="elo" style="font-weight: bold">{{$store.getters.selectedPlayer.elo}}</span></h2>
 
+      <!-- OPPONENT SCORES -->
+      <h2 style="margin-top: 20px;">Opponents overview</h2>
+      <table v-if="$store.getters.selectedPlayer.matches.length > 0">
+        <thead>
+          <tr>
+            <th>Opponent</th>
+            <th>Score</th>
+            <th><PlusMinusIcon/>Rating</th>
+            <th>Games</th>
+          </tr>
+        </thead>
+        <tr v-for="score in $store.getters.selectedPlayer.opponentScores" :key="score.name">
+          <td>
+            <router-link :to="'/player/'+score.name">
+              {{score.name}}
+            </router-link>
+          </td>
+          <td class="elosmall">
+            {{score.wins}}-{{score.losses}}
+          </td>
+          <td class="elosmall">
+            {{score.eloSum >= 0 ? '+' : ''}}{{score.eloSum}}
+          </td>
+          <td class="elosmall">
+            {{score.games}}
+          </td>
+        </tr>
+      </table>
+
+      <p v-else>No games yet</p>
+
+      <!-- GAME HISTORY -->
       <h2 style="margin-top: 20px;">Game history</h2>
       <table v-if="$store.getters.selectedPlayer.matches.length > 0">
         <thead>
