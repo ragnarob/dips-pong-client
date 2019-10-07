@@ -6,6 +6,7 @@
       <ArrowLeft/> Back to home
     </router-link>
 
+    <!-- RATING SIMPLE -->
     <h3 style="margin-top: 10px;">Rating</h3>
     <p style="margin-top: 2px;">The rating system being used is standard <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO</a>. Very simple to implement, but not very sophisticated.</p>
     <p>The basics of ELO are:</p>
@@ -24,26 +25,7 @@
 
     <p><i>If players at some point travel to other offices/leagues, I might implement a feature where players can essentially steal points from the other league by winning against their players (and keep a record of which office has stolen the most points from which). This would mean that the average rating in each league would differ from 1200.</i></p>
 
-    <h3>Rivalry calculation</h3>
-    <p style="margin-top: 2px;">The rivalries lists the top three pairs of players with the highest "rivalry score".</p>
-    <p>The function for calculating score is shown below, where <pre>diff</pre> is the difference in wins between the two players, and <pre>total</pre> is the total number of games they've played against each other. Improvements to this function are welcome.</p>
-    <p class="consolas-text">rivalryScore = total - ((diff + 1) * total) / 5</p>
-    <p>A player pair must also have more than five games in total for the score to count.</p>
-    <p>This list will work better the more games there are in a league. It might look a little silly at first. (Oslo office, I'm looking at you (at the time of writing))</p>
-
-    <h3>Deleting games</h3>
-    <p style="margin-top: 2px;">
-      Games can be deleted as long as neither player involved has had a more recent game than the one being deleted.
-    </p>
-    <p>
-      This feature is meant to be used immediately after registering a wrong result.
-    </p>
-
-    <h3>Hosting &amp; etc</h3>
-    <p style="margin-top: 2px;">
-      Server: Node.js with Express and MySQL running on an Ubuntu-vm hosted by Vultr.
-    </p>
-
+    <!-- RATING SYSTEMS AND SIMULATING -->
     <h3>Different rating systems</h3>
     <div class="row-flex">
       <p style="margin-top: 2px;">
@@ -61,7 +43,6 @@
         Test
       </button>
     </div>
-
     
     <p v-if="!$store.getters.selectedOffice">
       You must select a league from the home page to simulate ratings for.
@@ -78,7 +59,10 @@
       </div>
     </div>
 
-    <p>Below are the different rating systems proposed. So far, they all have the same outcome if the player with higher rating wins.</p>
+    <p>
+      Below are the different rating systems proposed. So far, they all have the same outcome if the player with higher rating wins.
+      One of the expressed concerns about standard ELO is that the points transferred are capped at 32, even for big upsets. This is what inspired the alternative systems.
+    </p>
     <table v-if="ratingSamples">
       <thead>
         <tr>
@@ -110,6 +94,29 @@
 
     <img src="../../assets/elograph.jpg" style="width: 100%;"/>
 
+    <!-- RIVALRY -->
+    <h3>Rivalry calculation</h3>
+    <p style="margin-top: 2px;">The rivalries lists the top three pairs of players with the highest "rivalry score".</p>
+    <p>The function for calculating score is shown below, where <pre>diff</pre> is the difference in wins between the two players, and <pre>total</pre> is the total number of games they've played against each other. Improvements to this function are welcome.</p>
+    <p class="consolas-text">rivalryScore = total - ((diff + 1) * total) / 5</p>
+    <p>A player pair must also have more than five games in total for the score to count.</p>
+    <p>This list will work better the more games there are in a league. It might look a little silly at first. (Oslo office, I'm looking at you (at the time of writing))</p>
+
+    <!-- DELETING GAMES -->
+    <h3>Deleting games</h3>
+    <p style="margin-top: 2px;">
+      Games can be deleted as long as neither player involved has had a more recent game than the one being deleted.
+    </p>
+    <p>
+      This feature is meant to be used immediately after registering a wrong result.
+    </p>
+
+    <h3>Hosting &amp; etc</h3>
+    <p style="margin-top: 2px;">
+      Server: Node.js with Express and MySQL running on an Ubuntu-vm hosted by Vultr.
+    </p>
+
+    <!-- MORE -->
     <h3>More content to come here later?</h3>
     <p style="margin-top: 2px;">Stay tuned!</p>
   </div>

@@ -1,3 +1,17 @@
 {
-  "apiUrlBase": ""
+  "apiUrlBase": "",
+  "recentChanges": [
+    {
+      "date": "2019-10-07",
+      "change": "Added passwords for each league"
+    },
+    {
+      "date": "2019-10-07",
+      "change": "Added ELO rating alternatives with simulation options in \"How stuff works\"."
+    },
+    {
+      "date": "2019-10-07",
+      "change": "In a player's page, the total sum of games against each opponent is now listed."
+    }
+  ]
 }

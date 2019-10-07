@@ -40,7 +40,7 @@
         <input type="text" v-model="newOfficePassword" style="grid-row: 2; grid-column: 2; width: 140px;"/>
 
         <label style="grid-row: 3; grid-column: 1;">Password hint</label>
-        <textarea v-model="newOfficePasswordHint" placeholder="Something everyone in your office will understand" style="grid-row: 3; grid-column: 2; width: 140px; font-family: Helvetica;" rows="3"/>
+        <textarea v-model="newOfficePasswordHint" placeholder="Something everyone in the league will understand" style="grid-row: 3; grid-column: 2; width: 140px; font-family: Helvetica;" rows="3"/>
 
         <!-- <label style="grid-row: 2; grid-column: 1;">Slack bot URL</label>
         <input type="text" v-model="newOfficeSlackBotUrl" style="grid-row: 2; grid-column: 2; width: 300px;"/> -->

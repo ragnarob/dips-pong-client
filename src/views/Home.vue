@@ -13,6 +13,8 @@
       
       <OfficeSelector/>
 
+      <RecentChanges/>
+
       <div v-if="$store.getters.selectedOffice">
         <div style="display: flex; flex-direction: row; width: fit-content; margin: auto; flex-wrap: wrap; justify-content: center;">
           <div class="bordered">
@@ -59,6 +61,7 @@ import OtherStats from '@/components/OtherStats.vue'
 import RecentGames from '@/components/RecentGames.vue'
 import Graph from '@/components/Graph.vue'
 import OfficeSelector from '@/components/OfficeSelector.vue'
+import RecentChanges from '@/components/RecentChanges.vue'
 
 import BookIcon from 'vue-material-design-icons/BookOpenPageVariant.vue'
 import InformationIcon from 'vue-material-design-icons/Information.vue'
@@ -74,6 +77,7 @@ export default {
     RecentGames,
     Graph,
     OfficeSelector,
+    RecentChanges,
     BookIcon,
     InformationIcon,
   },

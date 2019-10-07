@@ -119,6 +119,20 @@ button, input[type=submit] {
     }
   }
 }
+.cursor-pointer {
+  &:hover {
+    cursor: pointer;
+  }
+}
+.link-color {
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  color: #d02d28;
+  transition: 180ms ease;
+  &:hover {
+    border-bottom: 1px solid #d02d28;
+  }
+}
 .error-message {
   color: red;
 }
