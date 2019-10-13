@@ -77,6 +77,7 @@ export default {
         this.$store.dispatch('getPlayerList')
 
         this.successMessage = 'Success adding ' + this.newPlayerName
+        this.errorMessage = ''
 
         this.newPlayerName = ''
         this.$store.state.isAddingPlayer = false
@@ -84,6 +85,11 @@ export default {
       else {
         this.addSuccessful = false
         this.errorMessage = response.error
+
+        if (response.error === 'Not logged in') {
+          this.$store.dispatch('setLoggedInOffice', null)
+          this.$store.dispatch('showLoginModal')
+        }
       }
     },
 

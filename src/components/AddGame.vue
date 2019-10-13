@@ -87,6 +87,7 @@ export default {
       this.hasAdded = true
       if (!response.error) {
         this.addSuccessful = true
+        this.errorMessage = ''
 
         this.$store.dispatch('getPlayerList')
         this.$store.dispatch('getOtherStats')
@@ -101,6 +102,10 @@ export default {
       else {
         this.addSuccessful = false
         this.errorMessage = response.error
+        if (response.error === 'Not logged in') {
+          this.$store.dispatch('setLoggedInOffice', null)
+          this.$store.dispatch('showLoginModal')
+        }
       }
     },
 
