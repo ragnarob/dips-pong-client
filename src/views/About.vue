@@ -8,7 +8,7 @@
 
     <!-- RATING SIMPLE -->
     <h3 style="margin-top: 10px;">Rating</h3>
-    <p style="margin-top: 2px;">The rating system being used is standard <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO</a>. Very simple to implement, but not very sophisticated.</p>
+    <p style="margin-top: 2px;">The rating system being used is <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO</a>. Very simple to implement, but not very sophisticated.</p>
     <p>The basics of ELO are:</p>
     <ul>
       <li>Each player starts at a predefined rating (1200)</li>
@@ -17,11 +17,11 @@
       <li>How much rating is transferred is determined by how likely the result is. If the winning player is expected to win, less rating is transferred. If the winning player is expected to lose, more rating is transferred.</li>
     </ul>
 
-    <p>Min/max rating transferred is <span class="consolas-text">probability * k</span>. Currently, this constant <span class="consolas-text">k</span> is set to 32.
-       This means that no matter how big the rating difference is, <u>no more than 32 points can ever be transferred</u>. This can change with different variations of ELO, see further below.</p>
+    <p>In standard elo, min/max rating transferred is <span class="consolas-text">probability * k</span>. Currently, this constant <span class="consolas-text">k</span> is set to 32.
+       This means that no matter how big the rating difference is, no more than 32 points can ever be transferred. <u>However</u>, Dips-Pong uses a modified version of Elo that increases the amount of points transferred when the winning player has the lower rating.</p>
     <p>Further below are some examples of ratings and points transferred.</p>
 
-    <p><i>Changes to the constant k, or the imeplementation of a new and better rating system can be considered. All that needs to be done afterwards is to rerun all the games through the new rating calculations.</i></p>
+    <p><i>Imeplementation of a new and better rating system can be considered. All that needs to be done afterwards is to rerun all the games through the new rating calculations.</i></p>
 
     <p><i>If players at some point travel to other offices/leagues, I might implement a feature where players can essentially steal points from the other league by winning against their players (and keep a record of which office has stolen the most points from which). This would mean that the average rating in each league would differ from 1200.</i></p>
 
@@ -50,7 +50,7 @@
 
     <div class="row-flex" v-if="testedSystemRatings.length > 0" style="margin-top: 10px;">
       <div class="col-flex">
-        <h2 style="margin-bottom: -10px;">Regular ELO</h2>
+        <h2 style="margin-bottom: -10px;">Current</h2>
         <PlayerList :hideInactivePlayers="true" :hideHeader="true"/>
       </div>
       <div class="col-flex" style="margin-left: 30px;">
@@ -62,6 +62,9 @@
     <p>
       Below are the different rating systems proposed. So far, they all have the same outcome if the player with higher rating wins.
       One of the expressed concerns about standard ELO is that the points transferred are capped at 32, even for big upsets. This is what inspired the alternative systems.
+    </p>
+    <p>
+      As of October 10 2019, all rating changes are calculated using Upset elo. Ratings for all previous games were also recalculated using Upset elo.
     </p>
     <table v-if="ratingSamples">
       <thead>
