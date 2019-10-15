@@ -3,8 +3,8 @@
     <p @click="isOpen = !isOpen" class="cursor-pointer link-color" style="text-align:center;">
       {{isOpen ? 'Hide' : 'Show'}} recent changes
     </p>
-    <span v-if="isOpen" style="margin-top: 2px;">
-      <p v-for="change in recentChanges" :key="change.change" class="smaller-text">
+    <span v-if="isOpen" style="margin-top: 2px; text-align: justify; margin-bottom: -8px;">
+      <p v-for="change in recentChanges" :key="change.change" class="smaller-text" style="margin-bottom: 8px;">
         - {{change.change}}
       </p>
     </span>

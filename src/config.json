@@ -2,6 +2,14 @@
   "apiUrlBase": "",
   "recentChanges": [
     {
+      "date": "2019-10-16",
+      "change": "Added cross-league game option."
+    },
+    {
+      "date": "2019-10-13",
+      "change": "All games will now use the 'SmallUpset elo' calculation algorithm. Existing games have been re-run through this algorithm to keep things consistent."
+    },
+    {
       "date": "2019-10-07",
       "change": "Added passwords for each league"
     },
