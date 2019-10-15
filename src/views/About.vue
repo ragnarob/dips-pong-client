@@ -8,22 +8,18 @@
 
     <!-- RATING SIMPLE -->
     <h3 style="margin-top: 10px;">Rating</h3>
-    <p style="margin-top: 2px;">The rating system being used is <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO</a>. Very simple to implement, but not very sophisticated.</p>
+    <p style="margin-top: 2px;">The rating system being used is a modified <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO</a>. Very simple to implement, but not very sophisticated.</p>
     <p>The basics of ELO are:</p>
     <ul>
       <li>Each player starts at a predefined rating (1200)</li>
       <li>The winning player wins as many points as the losing player loses. In other words, rating is transferred from the losing player to the winning player</li>
-      <li>The average rating in a league is always 1200</li>
+      <li>The average rating in a league is always 1200 (no longer true with cross-league games)</li>
       <li>How much rating is transferred is determined by how likely the result is. If the winning player is expected to win, less rating is transferred. If the winning player is expected to lose, more rating is transferred.</li>
     </ul>
 
-    <p>In standard elo, min/max rating transferred is <span class="consolas-text">probability * k</span>. Currently, this constant <span class="consolas-text">k</span> is set to 32.
-       This means that no matter how big the rating difference is, no more than 32 points can ever be transferred. <u>However</u>, Dips-Pong uses a modified version of Elo that increases the amount of points transferred when the winning player has the lower rating.</p>
     <p>Further below are some examples of ratings and points transferred.</p>
 
-    <p><i>Imeplementation of a new and better rating system can be considered. All that needs to be done afterwards is to rerun all the games through the new rating calculations.</i></p>
-
-    <p><i>If players at some point travel to other offices/leagues, I might implement a feature where players can essentially steal points from the other league by winning against their players (and keep a record of which office has stolen the most points from which). This would mean that the average rating in each league would differ from 1200.</i></p>
+    <p><i>Imeplementation of a better rating system can be considered. All that needs to be done afterwards is to rerun all the games through the new rating calculations.</i></p>
 
     <!-- RATING SYSTEMS AND SIMULATING -->
     <h3>Different rating systems</h3>
@@ -60,11 +56,11 @@
     </div>
 
     <p>
-      Below are the different rating systems proposed. So far, they all have the same outcome if the player with higher rating wins.
+      Currently, 'SmallUpset elo' is the rating system in use. Below are the different rating systems proposed. So far, they all have the same outcome if the player with higher rating wins.
       One of the expressed concerns about standard ELO is that the points transferred are capped at 32, even for big upsets. This is what inspired the alternative systems.
     </p>
     <p>
-      As of October 10 2019, all rating changes are calculated using Upset elo. Ratings for all previous games were also recalculated using Upset elo.
+      As of October 10 2019, all rating changes are calculated using SmallUpset elo. Ratings for all previous games have also been recalculated using SmallUpset elo.
     </p>
     <table v-if="ratingSamples">
       <thead>
@@ -103,7 +99,8 @@
     <p>The function for calculating score is shown below, where <pre>diff</pre> is the difference in wins between the two players, and <pre>total</pre> is the total number of games they've played against each other. Improvements to this function are welcome.</p>
     <p class="consolas-text">rivalryScore = total - ((diff + 1) * total) / 5</p>
     <p>A player pair must also have more than five games in total for the score to count.</p>
-    <p>This list will work better the more games there are in a league. It might look a little silly at first. (Oslo office, I'm looking at you (at the time of writing))</p>
+    <p>This list will work better the more games there are in a league. It might look a little silly at first.</p>
+    <p>Edit: This function needs some serious tweaking...</p>
 
     <!-- DELETING GAMES -->
     <h3>Deleting games</h3>
