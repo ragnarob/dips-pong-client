@@ -239,6 +239,12 @@ export default {
     if (this.$store.getters.selectedOffice) {
       this.selectedOffice = this.$store.getters.selectedOffice
     }
+
+    this.$store.watch(this.$store.getters.selectedOfficeFunc, newOffice => {
+      if (newOffice.id !== this.selectedOffice.id) {
+        this.selectedOffice = newOffice
+      }
+    })
   }
 }
 </script>

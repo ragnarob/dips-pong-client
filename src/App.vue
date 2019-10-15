@@ -131,6 +131,7 @@ button, input[type=submit] {
   transition: 180ms ease;
   &:hover {
     border-bottom: 1px solid #d02d28;
+    cursor: pointer;
   }
 }
 .error-message {

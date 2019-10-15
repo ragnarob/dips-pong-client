@@ -151,6 +151,7 @@ export default new Vuex.Store({
     ratingStatsFunc: state => () => state.ratingStats,
     offices: state => state.offices,
     selectedOffice: state => state.selectedOffice,
+    selectedOfficeFunc: state => () => state.selectedOffice,
     showLoginModal: state => state.showLoginModal,
     loggedInOffice: state => state.loggedInOffice,
     isLoggedIn: state => state.loggedInOffice && state.selectedOffice && (state.selectedOffice.name == state.loggedInOffice),

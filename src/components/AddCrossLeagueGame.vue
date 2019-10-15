@@ -5,7 +5,7 @@
               @click="startAddingGame()"
               style="margin-top: 16px;"
               class="small-button smallButtonWithIconFirst">
-        <PlusIcon/> Add X-league result
+        <SwapIcon/> Add X-league result
       </button>
       
       <form v-on:submit.prevent="addGame"
@@ -48,7 +48,7 @@ import gameApi from '@/api/gameApi'
 import playerApi from '@/api/playerApi'
 
 import CrossIcon from 'vue-material-design-icons/Close.vue'
-import PlusIcon from 'vue-material-design-icons/PlusCircle.vue'
+import SwapIcon from 'vue-material-design-icons/SwapHorizontal.vue'
 import CheckIcon from 'vue-material-design-icons/CheckBold.vue'
 
 export default {
@@ -56,7 +56,7 @@ export default {
   
   components: {
     CrossIcon,
-    PlusIcon,
+    SwapIcon,
     CheckIcon,
   },
 
@@ -101,7 +101,7 @@ export default {
         this.$store.dispatch('getRatingStats')
 
         this.successMessage = `Success recording ${this.winningPlayer.name}'s win against ${this.losingPlayer.name}`
-        this.$store.state.isAddingGame = false
+        this.$store.state.isAddingCrossLeagueGame = false
         this.winningPlayer = undefined
         this.losingPlayer = undefined
       }
