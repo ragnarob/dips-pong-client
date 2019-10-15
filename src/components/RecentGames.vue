@@ -27,7 +27,7 @@
         </thead>
 
         <tbody>
-          <tr v-for="game in filteredGames" :key="game.gameId">
+          <tr v-for="(game, index) in filteredGames" :key="index">
             <td v-if="deleteModeActivated"
                 class="deleteIcon" 
                 @click="deleteClick(game)">
@@ -46,13 +46,25 @@
               {{prettyDate(game.timestamp)}}
             </td>
             <td style="text-align: center;">
-              <router-link :to="'/player/'+game.winningPlayer">{{game.winningPlayer}}</router-link>
-              <br>
+              <router-link v-if="!(game.isCrossLeague && game.winnerOffice !== $store.getters.selectedOffice.id)" 
+                           :to="'/player/'+game.winningPlayer">
+                {{game.winningPlayer}}
+              </router-link>
+              <p v-else>
+                {{game.winningPlayer}} <br/>
+                {{game.winnerOfficeName}}
+              </p>
               <p class="elosmall">{{game.winnerElo}}</p>
             </td>
             <td style="text-align: center;">
-              <router-link :to="'/player/'+game.losingPlayer">{{game.losingPlayer}}</router-link>
-              <br>
+              <router-link v-if="!(game.isCrossLeague && game.loserOffice !== $store.getters.selectedOffice.id)" 
+                           :to="'/player/'+game.losingPlayer">
+                {{game.losingPlayer}}
+              </router-link>
+              <p v-else>
+                {{game.losingPlayer}} <br/>
+                {{game.loserOfficeName}}
+              </p>
               <p class="elosmall">{{game.loserElo}}</p>
             </td>
             <td style="text-align: center;" class="elo">

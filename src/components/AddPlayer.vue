@@ -3,8 +3,8 @@
     <div>
       <button v-show="!$store.state.isAddingPlayer"
               @click="startAddingPlayer()"
-              style="width: 100%; margin-top: 16px;"
-              class="buttonWithIconFirst">
+              style="width: 100%; margin-top: 12px;"
+              class="small-button smallButtonWithIconFirst">
         <AddUserIcon/> Add new player
       </button>
       <form v-on:submit.prevent="addPlayer" v-show="$store.state.isAddingPlayer" style="display: flex; flex-direction: column;">

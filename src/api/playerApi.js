@@ -7,6 +7,11 @@ export default {
     return response.data
   },
 
+  async getAllPlayers () {
+    let response = await axios.get(`${apiUrlBase}/api/players`)
+    return response.data
+  },
+
   async addPlayer (playerName, officeId) {
     let response = await axios.post(`${apiUrlBase}/api/players`, {
       newPlayerName: playerName, officeId: officeId

@@ -3,10 +3,20 @@ const apiUrlBase = require('../config.json').apiUrlBase
 
 export default {
   async addGame (winningPlayerId, losingPlayerId, officeId) {
-    let response = await axios.post(apiUrlBase + '/api/games', {
+    let response = await axios.post(`${apiUrlBase}/api/games`, {
       winnerId: winningPlayerId, 
       loserId: losingPlayerId,
       officeId: officeId
+    })
+    return response.data
+  },
+
+  async addCrossLeagueGame (winningPlayerId, losingPlayerId, winningOfficeId, losingOfficeId) {
+    let response = await axios.post(`${apiUrlBase}/api/crossleaguegames`, {
+      winnerId: winningPlayerId,
+      loserId: losingPlayerId,
+      winningOfficeId: winningOfficeId,
+      losingOfficeId: losingOfficeId,
     })
     return response.data
   },

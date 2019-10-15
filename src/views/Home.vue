@@ -27,8 +27,9 @@
             </div>
 
             <div style="display: flex; flex-direction: column; width: fit-content; margin: 50px auto 30px auto; align-items: center;">
-              <AddGame v-if="!$store.state.isAddingPlayer"/>
-              <AddPlayer v-if="!$store.state.isAddingGame"/>
+              <AddGame v-if="!$store.state.isAddingPlayer && !$store.state.isAddingCrossLeagueGame"/>
+              <AddCrossLeagueGame v-if="!$store.state.isAddingPlayer && !$store.state.isAddingGame"/>
+              <AddPlayer v-if="!$store.state.isAddingGame && !$store.state.isAddingCrossLeagueGame"/>
 
               <router-link :to="'/rules'" style="width: fit-content; margin-top: 22px;">
                 <BookIcon/> Game rules
@@ -57,6 +58,7 @@
 import PlayerList from '@/components/PlayerList.vue'
 import AddPlayer from '@/components/AddPlayer.vue'
 import AddGame from '@/components/AddGame.vue'
+import AddCrossLeagueGame from '@/components/AddCrossLeagueGame.vue'
 import OtherStats from '@/components/OtherStats.vue'
 import RecentGames from '@/components/RecentGames.vue'
 import Graph from '@/components/Graph.vue'
@@ -73,6 +75,7 @@ export default {
     PlayerList,
     AddPlayer,
     AddGame,
+    AddCrossLeagueGame,
     OtherStats,
     RecentGames,
     Graph,

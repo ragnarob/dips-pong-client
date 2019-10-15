@@ -15,6 +15,7 @@ export default new Vuex.Store({
     ratingStats:  [],
     isAddingPlayer: false,
     isAddingGame: false,
+    isAddingCrossLeagueGame: false,
     offices: [],
     selectedOffice: undefined,
     showLoginModal: false,
