@@ -42,7 +42,7 @@
           </div>
         </div>
 
-        <div v-if="$store.getters.ratingStats.length > 0" class="bordered" style="margin: 20px auto 40px auto; width: 100%; max-width: 85%; padding-bottom: 0;">
+        <div v-if="showGraph" class="bordered" style="margin: 20px auto 40px auto; width: 100%; max-width: 85%; padding-bottom: 0;">
           <Graph :chartHeight="'400'" :chartWidth="'100%'" :showTitle="true"/>
         </div>
 
@@ -84,6 +84,12 @@ export default {
     BookIcon,
     InformationIcon,
   },
+
+  computed: {
+    showGraph () {
+      return this.$store.getters.ratingStats.length > 0 && window.innerWidth > 600
+    }
+  }
 }
 </script>
 
