@@ -65,23 +65,19 @@
     <table v-if="ratingSamples">
       <thead>
         <tr>
-          <th rowspan="2">A</th>
-          <th rowspan="2">X</th>
-          <th rowspan="2">Diff</th>
+          <th rowspan="2">Rating diff</th>
           <th v-for="system in ratingSystems" :key="system" colspan="2">
             {{system}}
           </th>
         </tr>
         <tr>
           <th v-for="i in ratingSystems.length * 2" :key="i">
-            {{i%2 === 1 ? 'A' : 'X'}} wins
+            {{i%2 === 1 ? 'Expected' : 'Upset'}}
           </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(ratings, sampleIndex) in ratingSamples.ratings" :key="sampleIndex">
-          <td>{{ratings[0]}}</td>
-          <td>{{ratings[1]}}</td>
           <td><b>{{ratings[1] - ratings[0]}}</b></td>
           <td v-for="i in ratingSystems.length * 2" :key="i">
             
@@ -97,10 +93,8 @@
     <h3>Rivalry calculation</h3>
     <p style="margin-top: 2px;">The rivalries lists the top three pairs of players with the highest "rivalry score".</p>
     <p>The function for calculating score is shown below, where <pre>diff</pre> is the difference in wins between the two players, and <pre>total</pre> is the total number of games they've played against each other. Improvements to this function are welcome.</p>
-    <p class="consolas-text">rivalryScore = total - ((diff + 1) * total) / 5</p>
-    <p>A player pair must also have more than five games in total for the score to count.</p>
-    <p>This list will work better the more games there are in a league. It might look a little silly at first.</p>
-    <p>Edit: This function needs some serious tweaking...</p>
+    <p class="consolas-text">rivalryScore = -10 * diff/total + total/140</p>
+    <p>A player pair must also have more than three games in total for the score to count.</p>
 
     <!-- DELETING GAMES -->
     <h3>Deleting games</h3>
