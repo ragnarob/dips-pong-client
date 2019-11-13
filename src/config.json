@@ -3,6 +3,10 @@
   "recentChanges": [
     {
       "date": "2019-11-13",
+      "change": "Hide inactive players (3+ weeks of inactivity) by default."
+    },
+    {
+      "date": "2019-11-13",
       "change": "Game list limited to 50 games."
     },
     {
