@@ -1,7 +1,7 @@
 <template>
   <div style="max-width: 100%;"> 
     <div class="player-list" v-if="!horizontalView">
-      <h2>Recent games</h2>
+      <h2>50 freshest games</h2>
 
       <button @click="toggleDeleteMode()"
               v-if="filteredGames.length > 0" 

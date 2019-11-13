@@ -1,6 +1,10 @@
 {
-  "apiUrlBase": "",
+  "apiUrlBase": "http://localhost:8081",
   "recentChanges": [
+    {
+      "date": "2019-11-13",
+      "change": "Game list limited to 50 games."
+    },
     {
       "date": "2019-10-16",
       "change": "Added cross-league game option."
