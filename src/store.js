@@ -69,6 +69,8 @@ export default new Vuex.Store({
       let positionCounter = 1
       for (var i=0; i<playerList.length; i++) {
         let player = playerList[i]
+        player.mostRecentGame = new Date(player.mostRecentGame)
+
         if (player.gamesCount === 1 && player.elo === 1200) {
           player.gamesCount = 0
           noGamesPlayers.push(player)
