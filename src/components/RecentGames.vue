@@ -172,7 +172,7 @@ export default {
 
     prettyDate (dateString) {
       const newDate = new Date(dateString)
-      return newDate.toDateString().substring(0,3) + ' ' + newDate.toTimeString().substring(0,5)
+      return newDate.toDateString().substr(4,6) + ' ' + newDate.toTimeString().substring(0,5)
     },
     
     smallDate (dateString) {
