@@ -202,4 +202,19 @@ th {
 ::selection {
   background-color: rgba(255, 83, 83, 0.555);
 }
+.margin-top-2 {
+  margin-top: 2px;
+}
+.margin-top-4 {
+  margin-top: 4px;
+}
+.margin-top-8 {
+  margin-top: 8px;
+}
+.margin-top-10 {
+  margin-top: 10px;
+}
+.margin-top-16 {
+  margin-top: 16px;
+}
 </style>

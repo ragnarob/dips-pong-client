@@ -4,11 +4,13 @@
       Interactive view
     </router-link>
 
-    <div style="height: fit-content; width: 240px; margin: 10px 10px 0 10px; padding: 16px; flex-shrink: 0;">
-      <PlayerList v-if="showPlayerList" :hideInactivePlayers="true"/>
+    <div id="display-view-player-list">
+      <PlayerList v-if="showPlayerList"/>
+      <!-- :hideInactivePlayers="true" -->
       <OtherStats style="margin-top: 30px;"/>
     </div>
-    <div style="height: 100%; margin: 0 0 0 0px; display: flex; flex-direction: column; overflow: hidden; width: 2000px;">
+    
+    <div id="display-view-recent-games">
       <Graph v-if="showGraph" :chartHeight="'100%'" :chartWidth="'100%'" :showTitle="false" style="margin-bottom: 10px;"/>
       <RecentGames :hoursCutoff="12" :horizontalView="true"/>
     </div>
@@ -45,7 +47,24 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  h1, p {
-    text-align: center;
-  }
+#display-view-player-list {
+  height: fit-content;
+  width: 240px;
+  margin: 10px 10px 0 10px;
+  padding: 16px;
+  flex-shrink: 0;
+}
+
+#display-view-recent-games {
+  height: 100%;
+  margin: 0 0 0 0px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 2000px;
+}
+
+h1, p {
+  text-align: center;
+}
 </style>

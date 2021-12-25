@@ -2,6 +2,10 @@
   "apiUrlBase": "",
   "recentChanges": [
     {
+      "date": "2021-12-25",
+      "change": "Revert the hiding of inactive players, so this thing doesn't look empty now that it's not used anymore."
+    },
+    {
       "date": "2019-11-13",
       "change": "Hide inactive players (3+ weeks of inactivity) by default."
     },

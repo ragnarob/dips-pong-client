@@ -34,12 +34,12 @@
         No players
       </p>
 
-      <p v-if="filteredPlayerList.length > 0"
+      <!-- <p v-if="filteredPlayerList.length > 0"
          @click="showInactivePlayers = !showInactivePlayers"
          class="link-color"
          style="font-size: 12px; margin: 4px auto 0 auto; width: fit-content;">
         {{showInactivePlayers ? 'Hide inactive players' : 'Show inactive players'}}
-      </p>
+      </p> -->
     </div>
   </div>
 </template>
@@ -51,7 +51,7 @@ export default {
   name: 'PlayerList',
 
   props: {
-    hideInactivePlayers: Boolean,
+    // hideInactivePlayers: Boolean,
     listToUse: Array,
     hideHeader: Boolean,
   },
@@ -62,14 +62,7 @@ export default {
 
   data: function () {
     return {
-      showInactivePlayers: false,
-    }
-  },
-
-  methods: {
-    toggleShowInactivePlayers () {
-      this.showInactivePlayers = !this.showInactivePlayers
-      this.$forceUpdate()
+      // showInactivePlayers: false,
     }
   },
 
@@ -78,9 +71,7 @@ export default {
       let threeWeeksAgo = new Date()
       threeWeeksAgo.setDate(threeWeeksAgo.getDate() - 21)
       if (!this.listToUse) {
-        return this.$store.getters.playerList.filter(
-          p => (!this.hideInactivePlayers || p.gamesCount > 0) && (this.showInactivePlayers || p.mostRecentGameDate > threeWeeksAgo)
-        )
+        return this.$store.getters.playerList.filter(p => (p.gamesCount > 0))
       }
       else {
         return this.listToUse
